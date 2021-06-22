@@ -6,18 +6,16 @@ export interface HeaderProps {
 }
  
 export interface HeaderState {
-    playMode: boolean;
-    menuMode: boolean;
+    playMode?: boolean;
+    menuMode?: boolean;
 }
  
 class Header extends React.Component <Readonly<HeaderProps>, HeaderState> {
     state = {
-        playMode: this.props.playMode === undefined? false : true,
-        menuMode: this.props.menuMode === undefined? false : true
+       
     }
     
     render() { 
-        console.log(this.state.playMode);
         return (  
             <header className = 'header'>
                 <div className = {this.getHamburger()}></div>
@@ -27,13 +25,13 @@ class Header extends React.Component <Readonly<HeaderProps>, HeaderState> {
     }
 
     private getHamburger() {
-        let styles = 'hamburger ';
-        return this.state.menuMode? styles + 'onen' : styles + 'closed' 
+        let styles = 'header__hamburger-';
+        return this.props.menuMode? styles + 'open' : styles + 'closed' 
     }
 
     private getMode() {
-        let styles = 'mode ';
-        return this.state.playMode? styles + 'play' : styles + 'train';
+        let styles = 'header__mode-';
+        return this.props.playMode? styles + 'play' : styles + 'train';
     }
 }
  
