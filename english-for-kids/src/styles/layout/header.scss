@@ -1,0 +1,20 @@
+.header {
+  height: 59px;
+  width: 69.5%;
+
+  margin: 35px auto;
+  display: flex;
+
+  &__hamburger-open,
+  &__hamburger-closed {
+    height: 59px;
+    width: 59px;
+  }
+  &__hamburger-open {
+    background-image: url(../../assets/icons/cross.svg);
+  }
+
+  &__hamburger-closed {
+    background-image: url(../../assets/icons/hamburger.svg);
+  }
+}
