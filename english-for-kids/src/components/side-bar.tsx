@@ -15,17 +15,17 @@ class SideBar extends React.Component<SideBarProps, SideBarState> {
         return ( 
         <div className = {"sideBar"}>
             <ul  className = {"sideBar__items"}>
-                <li>{Const.MAIN_PAGE}</li>
-                <li>{Const.ACTION_A}</li>
-                <li>{Const.ACTION_B}</li>
-                <li>{Const.ACTION_C}</li>
-                <li>{Const.ADJECTIVE}</li>
-                <li>{Const.ANIMAL_A}</li>
-                <li>{Const.ANIMAL_B}</li>
-                <li>{Const.CLOTHES}</li>
-                <li>{Const.EMOTION}</li>
+                <li className = {"sideBar__item"}>{Const.MAIN_PAGE}</li>
+                <li className = {"sideBar__item"}>{Const.ACTION_A}</li>
+                <li className = {"sideBar__item"}>{Const.ACTION_B}</li>
+                <li className = {"sideBar__item"}>{Const.ACTION_C}</li>
+                <li className = {"sideBar__item"}>{Const.ADJECTIVE}</li>
+                <li className = {"sideBar__item"}>{Const.ANIMAL_A}</li>
+                <li className = {"sideBar__item"}>{Const.ANIMAL_B}</li>
+                <li className = {"sideBar__item"}>{Const.CLOTHES}</li>
+                <li className = {"sideBar__item"}>{Const.EMOTION}</li>
             </ul>
-            <button>{Const.LOGIN}</button>
+            <button className = {"login_button"}>{Const.LOGIN}</button>
         </div>
         );
     }
