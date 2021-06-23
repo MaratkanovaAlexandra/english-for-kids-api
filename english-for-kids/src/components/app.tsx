@@ -3,20 +3,19 @@ import Header from './header';
 import SideBar from './side-bar';
 import CardsWrapper from './cards-wrapper';
 
-export interface AppProps {
-    
-}
+export interface AppProps {}
  
 export interface AppState {
     menuMode?: boolean,
-    playMode?:boolean
-    
+    playMode?:boolean,
+    page: string
 }
  
 class App extends PureComponent<AppProps, AppState> {
     state = {
         menuMode : false,
-        playMode : false
+        playMode : false,
+        page: "Action (set A)"
     }
     render() { 
         return (
@@ -31,7 +30,10 @@ class App extends PureComponent<AppProps, AppState> {
                         playMode = {this.state.playMode}
                         functions = {{play: this.playModeHandler, menu: this.menuModeHandler}}
                         />
-                    <CardsWrapper playMode = {this.state.playMode}/>
+                    <CardsWrapper 
+                      playMode = {this.state.playMode}
+                      page = {this.state.page}
+                      />
                 </div>
             </div>
             </React.Fragment>
