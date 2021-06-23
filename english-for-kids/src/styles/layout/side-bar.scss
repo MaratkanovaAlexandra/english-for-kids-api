@@ -2,7 +2,7 @@
   position: relative;
   width: 375px;
   height: 100vh;
-  background: $greenGradient;
+  transition: 0.4s;
 
   &__items {
     margin-left: 0;
@@ -38,4 +38,22 @@
   color: #fff;
   @include baseText;
   text-align: left;
+}
+
+.open {
+  transform: translate(0);
+  display: block;
+}
+
+.closed {
+  transform: translate(-200%);
+  display: none;
+}
+
+.play {
+  background: $redGradient;
+}
+
+.train {
+  background: $greenGradient;
 }
