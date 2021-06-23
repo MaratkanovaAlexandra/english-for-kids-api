@@ -13,8 +13,8 @@ class Card extends PureComponent<CardProps, CardState> {
     render() { 
         return ( 
             <div className = {"card"}>
-                {/* <img src={this.props.img} alt={this.props.name} /> */}
-
+                <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
+                <p className = {"card__eng"}>{this.props.name}</p>
             </div>
         );
     }
