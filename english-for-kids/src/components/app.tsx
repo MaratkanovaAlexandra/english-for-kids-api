@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import Header from './header';
 import SideBar from './side-bar';
+import CardsWrapper from './cards-wrapper';
 
 export interface AppProps {
     
@@ -30,6 +31,7 @@ class App extends PureComponent<AppProps, AppState> {
                         playMode = {this.state.playMode}
                         functions = {{play: this.playModeHandler, menu: this.menuModeHandler}}
                         />
+                    <CardsWrapper />
                 </div>
             </div>
             </React.Fragment>
