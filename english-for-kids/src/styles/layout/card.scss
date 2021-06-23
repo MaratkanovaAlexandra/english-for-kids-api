@@ -1,4 +1,5 @@
 .cardWrapper {
+  position: relative;
   width: 69.5%;
   margin: 0 auto;
   display: flex;
@@ -25,5 +26,37 @@
     margin: 10px auto;
     @include baseText;
     text-align: center;
+  }
+
+  &__circleImg {
+    position: absolute;
+    top: 50px;
+    left: 86px;
+    height: 125px;
+    width: 125px;
+    object-fit: cover;
+
+    border-radius: 50%;
+    border: 10px solid #fff;
+  }
+
+  &__background {
+    height: 120px;
+    width: 100%;
+    z-index: -5;
+  }
+
+  &__title {
+    @include baseText;
+    margin: 90px auto;
+    text-align: center;
+  }
+
+  .train {
+    background: $horGreenGradient;
+  }
+
+  .play {
+    background: $horRedGradient;
   }
 }
