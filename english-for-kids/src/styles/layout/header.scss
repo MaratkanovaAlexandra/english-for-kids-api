@@ -11,6 +11,8 @@
   &__hamburger-closed {
     height: 59px;
     width: 59px;
+    transition: 0.3s;
+    cursor: pointer;
   }
   &__hamburger-open {
     background-image: url(../../assets/icons/cross.svg);
@@ -28,6 +30,8 @@
 
     border-radius: 20px;
     transition: 0.3s;
+
+    cursor: pointer;
 
     font-family: "Roboto";
     text-transform: uppercase;
