@@ -7,22 +7,41 @@ export interface AppProps {
 }
  
 export interface AppState {
+    menuMode?: boolean,
+    playMode?:boolean
     
 }
  
-class App extends React.Component<AppProps, AppState> {
-    state = {}
+class App extends PureComponent<AppProps, AppState> {
+    state = {
+        menuMode : false,
+        playMode : false
+    }
     render() { 
         return (
             <React.Fragment>
             <div className = {"wrapper"}>
-                <SideBar />
+                <SideBar  
+                    menuMode = {this.state.menuMode}
+                    playMode = {this.state.playMode}/>
                 <div className = {"mainApp"}>
-                    <Header />
+                    <Header 
+                        menuMode = {this.state.menuMode} 
+                        playMode = {this.state.playMode}
+                        functions = {{play: this.playModeHandler, menu: this.menuModeHandler}}
+                        />
                 </div>
             </div>
             </React.Fragment>
         );
+    }
+
+    private menuModeHandler = () => {
+        this.setState({menuMode: !this.state.menuMode})
+    }
+
+    private playModeHandler = () => {
+        this.setState({playMode: !this.state.playMode})
     }
 }
  
