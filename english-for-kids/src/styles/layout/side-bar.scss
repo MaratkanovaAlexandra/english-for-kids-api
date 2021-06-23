@@ -1,6 +1,7 @@
 .sideBar {
-  position: relative;
-  width: 375px;
+  position: sticky;
+  top: 0;
+  min-width: 375px;
   height: 100vh;
   transition: 0.4s;
 
