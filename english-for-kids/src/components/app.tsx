@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import Header from './header';
+import SideBar from './side-bar';
 
 export interface AppProps {
     
@@ -15,8 +16,10 @@ class App extends React.Component<AppProps, AppState> {
         return (
             <React.Fragment>
             <div className = {"wrapper"}>
-                <Header />
-                
+                <SideBar />
+                <div className = {"mainApp"}>
+                    <Header />
+                </div>
             </div>
             </React.Fragment>
         );
