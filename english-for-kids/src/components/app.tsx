@@ -31,7 +31,7 @@ class App extends PureComponent<AppProps, AppState> {
                         playMode = {this.state.playMode}
                         functions = {{play: this.playModeHandler, menu: this.menuModeHandler}}
                         />
-                    <CardsWrapper />
+                    <CardsWrapper playMode = {this.state.playMode}/>
                 </div>
             </div>
             </React.Fragment>
