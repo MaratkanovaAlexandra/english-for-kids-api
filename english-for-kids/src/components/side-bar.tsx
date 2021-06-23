@@ -2,18 +2,16 @@ import React, { PureComponent } from 'react';
 import * as Const from '../models/const';
 
 export interface SideBarProps {
-    
+    playMode: boolean,
+    menuMode : boolean
 }
  
-export interface SideBarState {
-    
-}
+export interface SideBarState {}
  
-class SideBar extends React.Component<SideBarProps, SideBarState> {
-    state = { }
+class SideBar extends PureComponent<SideBarProps, SideBarState> {
     render() { 
         return ( 
-        <div className = {"sideBar"}>
+        <div className = {this.getState() + this.getPlayMode()}>
             <ul  className = {"sideBar__items"}>
                 <li className = {"sideBar__item"}>{Const.MAIN_PAGE}</li>
                 <li className = {"sideBar__item"}>{Const.ACTION_A}</li>
@@ -29,6 +27,15 @@ class SideBar extends React.Component<SideBarProps, SideBarState> {
         </div>
         );
     }
+
+    private getState = () => {
+        let styles = "sideBar "; 
+        return this.props.menuMode? styles + "open" : styles + "closed";
+    }
+
+    private getPlayMode = () => {
+        return this.props.playMode? " play" : " train";
+    } 
 }
  
 export default SideBar;
