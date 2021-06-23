@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 export interface CardProps {
     playMode: boolean,
     name: string,
-    transl?: string,
+    transl?: string|null,
     img: string
 }
  
@@ -17,7 +17,7 @@ class Card extends PureComponent<CardProps, CardState> {
     }
 
     private getCardType = () => {
-        if (this.props.transl === undefined) return this.getMainPageCard();
+        if (!this.props.transl) return this.getMainPageCard();
         return this.getBaseCard();
     }
 
@@ -29,6 +29,7 @@ class Card extends PureComponent<CardProps, CardState> {
                     <p className = {"card__eng"}>{this.props.name}</p>
                 </div>
                 <div className = {"card__back"}>
+                    <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
                     <p className = {"card__eng"}>{this.props.transl}</p>
                 </div>
             </div>
