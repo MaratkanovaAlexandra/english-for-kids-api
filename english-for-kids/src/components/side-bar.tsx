@@ -4,7 +4,8 @@ import * as Const from '../models/const';
 export interface SideBarProps {
     playMode: boolean,
     menuMode : boolean,
-    clickEvent: Function
+    clickEvent: Function,
+    page: string
 }
  
 export interface SideBarState {}
@@ -14,15 +15,15 @@ class SideBar extends PureComponent<SideBarProps, SideBarState> {
         return ( 
         <div className = {this.getState() + this.getPlayMode()}>
             <ul className = {"sideBar__items"} onClick = {this.props.clickEvent as MouseEventHandler}>
-                <li className = {"sideBar__item"}>{Const.MAIN_PAGE}</li>
-                <li className = {"sideBar__item"}>{Const.ACTION_A}</li>
-                <li className = {"sideBar__item"}>{Const.ACTION_B}</li>
-                <li className = {"sideBar__item"}>{Const.ACTION_C}</li>
-                <li className = {"sideBar__item"}>{Const.ADJECTIVE}</li>
-                <li className = {"sideBar__item"}>{Const.ANIMAL_A}</li>
-                <li className = {"sideBar__item"}>{Const.ANIMAL_B}</li>
-                <li className = {"sideBar__item"}>{Const.CLOTHES}</li>
-                <li className = {"sideBar__item"}>{Const.EMOTION}</li>
+                <li className = {this.getItemStyle(Const.MAIN_PAGE)}>{Const.MAIN_PAGE}</li>
+                <li className = {this.getItemStyle(Const.ACTION_A)}>{Const.ACTION_A}</li>
+                <li className = {this.getItemStyle(Const.ACTION_B)}>{Const.ACTION_B}</li>
+                <li className = {this.getItemStyle(Const.ACTION_C)}>{Const.ACTION_C}</li>
+                <li className = {this.getItemStyle(Const.ADJECTIVE)}>{Const.ADJECTIVE}</li>
+                <li className = {this.getItemStyle(Const.ANIMAL_A)}>{Const.ANIMAL_A}</li>
+                <li className = {this.getItemStyle(Const.ANIMAL_B)}>{Const.ANIMAL_B}</li>
+                <li className = {this.getItemStyle(Const.CLOTHES)}>{Const.CLOTHES}</li>
+                <li className = {this.getItemStyle(Const.EMOTION)}>{Const.EMOTION}</li>
             </ul>
             <button className = {"login_button"}>{Const.LOGIN}</button>
         </div>
@@ -37,6 +38,11 @@ class SideBar extends PureComponent<SideBarProps, SideBarState> {
     private getPlayMode = () => {
         return this.props.playMode? " play" : " train";
     } 
+
+    private getItemStyle = (name: string) => {
+        const styles = "sideBar__item";
+        return name === this.props.page? styles + " choosen" : styles;
+    }
 }
  
 export default SideBar;

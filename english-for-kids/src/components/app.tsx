@@ -26,6 +26,7 @@ class App extends PureComponent<AppProps, AppState> {
                     menuMode = {this.state.menuMode}
                     playMode = {this.state.playMode}
                     clickEvent = {this.pageChangeHandler}
+                    page = {this.state.page}
                     />
                 <div className = {"mainApp"}>
                     <Header 

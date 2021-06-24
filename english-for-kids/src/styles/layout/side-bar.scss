@@ -16,9 +16,14 @@
 
   &__item {
     padding-bottom: 20px;
+    cursor: pointer;
 
     color: #fff;
     @include baseText;
+  }
+
+  .choosen {
+    text-decoration: underline;
   }
 }
 
