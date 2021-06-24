@@ -13,6 +13,7 @@
   height: 268px;
   margin-bottom: 30px;
   perspective: 1000px;
+  transition: 0.3s;
 
   &__page {
     position: relative;
@@ -20,6 +21,12 @@
     height: 268px;
     margin-bottom: 30px;
     box-shadow: (0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 5px;
+    transition: 0.3s;
+
+    &:hover {
+      box-shadow: (0px 8px 8px rgba(0, 0, 0, 0.5));
+    }
   }
 
   &__top,
@@ -28,7 +35,7 @@
     width: 100%;
     height: 100%;
 
-    transition: 1.3s;
+    transition: 0.3s;
     backface-visibility: hidden;
 
     background-color: #fff;
@@ -39,17 +46,37 @@
     transform: rotateY(180deg);
   }
 
+  &:hover {
+    filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.5));
+  }
+
   &__img {
     width: 100%;
     height: 218px;
     border-radius: 5px;
   }
 
-  &:hover .card__top {
+  &__turn {
+    position: absolute;
+    bottom: 17px;
+    right: 12px;
+
+    height: 13px;
+    width: 19px;
+
+    transition: 0.2s;
+    background-image: url(../../assets/icons/turned.svg);
+
+    &:hover {
+      background-image: url(../../assets/icons/turned-hov.svg);
+    }
+  }
+
+  .turned .card__top {
     transform: rotateY(180deg);
   }
 
-  &:hover .card__back {
+  .turned .card__back {
     transform: rotateY(360deg);
   }
 
@@ -75,6 +102,7 @@
     height: 120px;
     width: 100%;
     z-index: -5;
+    border-radius: 5px 5px 0 0;
   }
 
   &__title {
