@@ -8,10 +8,13 @@ export interface CardProps {
 }
  
 export interface CardState {
-    
+    turned: boolean
 }
  
 class Card extends PureComponent<CardProps, CardState> {
+    state = {
+        turned: false
+    }
     render() { 
         return this.getCardType();
     }
@@ -27,6 +30,7 @@ class Card extends PureComponent<CardProps, CardState> {
                 <div className = {"card__top"}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
                     <p className = {"card__eng"}>{this.props.name}</p>
+                    <div className = {"card__turn"}></div>
                 </div>
                 <div className = {"card__back"}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
