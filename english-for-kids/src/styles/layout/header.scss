@@ -9,13 +9,14 @@
 
   &__hamburger-open,
   &__hamburger-closed {
+    z-index: 10;
     height: 59px;
     width: 59px;
     transition: 0.3s;
     cursor: pointer;
   }
   &__hamburger-open {
-    background-image: url(../../assets/icons/cross.svg);
+    background-image: none;
   }
 
   &__hamburger-closed {

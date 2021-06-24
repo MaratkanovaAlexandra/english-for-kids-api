@@ -14,6 +14,7 @@ class SideBar extends PureComponent<SideBarProps, SideBarState> {
     render() { 
         return ( 
         <div className = {this.getState() + this.getPlayMode()}>
+            <div className = {"sideBar__cross"}></div>
             <ul className = {"sideBar__items"} onClick = {this.props.clickEvent as MouseEventHandler}>
                 <li className = {this.getItemStyle(Const.MAIN_PAGE)}>{Const.MAIN_PAGE}</li>
                 <li className = {this.getItemStyle(Const.ACTION_A)}>{Const.ACTION_A}</li>
