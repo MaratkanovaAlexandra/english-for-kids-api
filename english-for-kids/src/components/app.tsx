@@ -25,7 +25,7 @@ class App extends PureComponent<AppProps, AppState> {
                 <SideBar  
                     menuMode = {this.state.menuMode}
                     playMode = {this.state.playMode}
-                    clickEvent = {this.pageChangeHandler}
+                    funstions = {[this.pageChangeHandler, this.menuModeHandler]}
                     page = {this.state.page}
                     />
                 <div className = {"mainApp"}>

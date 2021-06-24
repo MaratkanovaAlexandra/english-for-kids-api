@@ -4,8 +4,8 @@ import * as Const from '../models/const';
 export interface SideBarProps {
     playMode: boolean,
     menuMode : boolean,
-    clickEvent: Function,
-    page: string
+    funstions: Function[],
+    page: string,
 }
  
 export interface SideBarState {}
@@ -14,8 +14,8 @@ class SideBar extends PureComponent<SideBarProps, SideBarState> {
     render() { 
         return ( 
         <div className = {this.getState() + this.getPlayMode()}>
-            <div className = {"sideBar__cross"}></div>
-            <ul className = {"sideBar__items"} onClick = {this.props.clickEvent as MouseEventHandler}>
+            <div className = {"sideBar__cross"} onClick = {this.props.funstions[1] as MouseEventHandler} ></div>
+            <ul className = {"sideBar__items"} onClick = {this.props.funstions[0] as MouseEventHandler}>
                 <li className = {this.getItemStyle(Const.MAIN_PAGE)}>{Const.MAIN_PAGE}</li>
                 <li className = {this.getItemStyle(Const.ACTION_A)}>{Const.ACTION_A}</li>
                 <li className = {this.getItemStyle(Const.ACTION_B)}>{Const.ACTION_B}</li>
