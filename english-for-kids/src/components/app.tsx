@@ -55,8 +55,9 @@ class App extends PureComponent<AppProps, AppState> {
 
     private pageChangeHandler = (event:MouseEvent) => {
         const target = event.target as HTMLElement;
-        if (target.innerText === this.state.page) return;
-        this.setState({page: target.innerText})
+        const page = target.innerText === "" ? target.parentElement?.lastElementChild?.innerHTML : target.innerText;
+        if (page === this.state.page) return;
+        this.setState({page: page as string})
     }
 }
  
