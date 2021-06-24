@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { MouseEventHandler, PureComponent } from 'react';
 import * as Const from '../models/const';
 
 export interface SideBarProps {
     playMode: boolean,
-    menuMode : boolean
+    menuMode : boolean,
+    clickEvent: Function
 }
  
 export interface SideBarState {}
@@ -12,7 +13,7 @@ class SideBar extends PureComponent<SideBarProps, SideBarState> {
     render() { 
         return ( 
         <div className = {this.getState() + this.getPlayMode()}>
-            <ul  className = {"sideBar__items"}>
+            <ul className = {"sideBar__items"} onClick = {this.props.clickEvent as MouseEventHandler}>
                 <li className = {"sideBar__item"}>{Const.MAIN_PAGE}</li>
                 <li className = {"sideBar__item"}>{Const.ACTION_A}</li>
                 <li className = {"sideBar__item"}>{Const.ACTION_B}</li>

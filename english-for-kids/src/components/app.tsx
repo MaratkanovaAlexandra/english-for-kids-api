@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { MouseEvent, PureComponent } from 'react';
 import Header from './header';
 import SideBar from './side-bar';
 import CardsWrapper from './cards-wrapper';
+import * as Const from '../models/const'
 
 export interface AppProps {}
  
@@ -15,7 +16,7 @@ class App extends PureComponent<AppProps, AppState> {
     state = {
         menuMode : false,
         playMode : false,
-        page: "Action (set A)"
+        page: Const.ACTION_A
     }
     render() { 
         return (
@@ -23,7 +24,9 @@ class App extends PureComponent<AppProps, AppState> {
             <div className = {"wrapper"}>
                 <SideBar  
                     menuMode = {this.state.menuMode}
-                    playMode = {this.state.playMode}/>
+                    playMode = {this.state.playMode}
+                    clickEvent = {this.pageChangeHandler}
+                    />
                 <div className = {"mainApp"}>
                     <Header 
                         menuMode = {this.state.menuMode} 
@@ -46,6 +49,12 @@ class App extends PureComponent<AppProps, AppState> {
 
     private playModeHandler = () => {
         this.setState({playMode: !this.state.playMode})
+    }
+
+    private pageChangeHandler = (event:MouseEvent) => {
+        const target = event.target as HTMLElement;
+        if (target.innerText === this.state.page) return;
+        this.setState({page: target.innerText})
     }
 }
  
