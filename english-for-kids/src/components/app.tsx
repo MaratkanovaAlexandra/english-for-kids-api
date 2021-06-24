@@ -16,7 +16,7 @@ class App extends PureComponent<AppProps, AppState> {
     state = {
         menuMode : false,
         playMode : false,
-        page: Const.ACTION_A
+        page: Const.MAIN_PAGE
     }
     render() { 
         return (
@@ -37,6 +37,7 @@ class App extends PureComponent<AppProps, AppState> {
                     <CardsWrapper 
                       playMode = {this.state.playMode}
                       page = {this.state.page}
+                      clickEvent = {this.pageChangeHandler}
                       />
                 </div>
             </div>

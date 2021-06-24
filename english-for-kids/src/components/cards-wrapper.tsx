@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { MouseEventHandler, PureComponent } from 'react';
 import CardEnum from '../models/card-enum';
 import Card from './card';
 
 export interface CardsWrapperProps {
     playMode: boolean,
-    page: string
+    page: string,
+    clickEvent: Function
 }
  
 export interface CardsWrapperState {
@@ -20,7 +21,8 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
                                     playMode = {this.props.playMode}
                                     name = {card.name}
                                     img = {card.img}
-                                    transl = {card.transl}/>)}
+                                    transl = {card.transl}
+                                    clickEvent = {!card.transl && this.props.clickEvent as MouseEventHandler}/>)}
             </div>
         );
     }
