@@ -22,10 +22,18 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
                                     name = {card.name}
                                     img = {card.img}
                                     transl = {card.transl}
+                                    audio = {card.sound}
                                     clickEvent = {!card.transl && this.props.clickEvent as MouseEventHandler}/>)}
             </div>
         );
     }
+
+    // click = () => {
+    //     const audio = new Audio();
+    //     audio.src = CardEnum["Emotion"][1].sound as string;
+    //     audio.currentTime = 0;
+    //     audio.play()
+    // }
 }
  
 export default CardsWrapper;

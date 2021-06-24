@@ -5,7 +5,8 @@ export interface CardProps {
     playMode: boolean,
     name: string,
     transl?: string|null,
-    img: string
+    img: string,
+    audio: string|null
 }
  
 export interface CardState {
@@ -27,7 +28,7 @@ class Card extends PureComponent<CardProps, CardState> {
 
     private getBaseCard = () => {
         return ( 
-            <div className = {"card"} onMouseLeave = {this.turnBackHandle}>
+            <div className = {"card"} onMouseLeave = {this.turnBackHandle} onClick = {this.playAudio}>
                 <div className = {this.getTurnTop()}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
                     <p className = {"card__eng"}>{this.props.name}</p>
@@ -74,6 +75,12 @@ class Card extends PureComponent<CardProps, CardState> {
 
     private turnBackHandle= () => {
         if (this.state.turned) this.setState({turned: false});
+    }
+
+    playAudio = () => {
+        //https://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
+        const audio = new Audio("data:audio/wav;base64," + this.props.audio as string);
+        audio.play()
     }
 }
  
