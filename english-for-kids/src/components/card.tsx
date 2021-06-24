@@ -31,15 +31,29 @@ class Card extends PureComponent<CardProps, CardState> {
             <div className = {"card"} onMouseLeave = {this.turnBackHandle} onClick = {this.playAudio}>
                 <div className = {this.getTurnTop()}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
-                    <p className = {"card__eng"}>{this.props.name}</p>
-                    <div className = {"card__turn"}
-                         onClick = {this.turnHandle}></div>
+                    {this.getGameCard()}
                 </div>
                 <div className = {this.getTurnBack()}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
                     <p className = {"card__eng"}>{this.props.transl}</p>
                 </div>
             </div>
+        );
+    }
+
+    private getGameCard = () => {
+        if(!this.props.playMode) return (
+            <React.Fragment>
+                <p className = {"card__eng"}>{this.props.name}</p>
+                <div className = {"card__turn"}
+                onClick = {this.turnHandle}></div>
+            </React.Fragment>
+        );
+
+        return (
+            <React.Fragment>
+                <p className = {"card__eng"}>{""}</p>
+            </React.Fragment> 
         );
     }
 
