@@ -13,7 +13,7 @@ export interface CardsWrapperState {
  
 class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
     render() { 
-        const CARDS = CardEnum[this.props.page]
+        const CARDS = CardEnum[this.props.page];
         return (  
             <div className = {"cardWrapper"}>
                 {CARDS.map((card) => <Card key = {card.name} 
