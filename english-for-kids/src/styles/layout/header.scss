@@ -13,14 +13,16 @@
     height: 59px;
     width: 59px;
     transition: 0.3s;
-    cursor: pointer;
+    background-image: url(../../assets/icons/hamburger.svg);
   }
   &__hamburger-open {
-    background-image: none;
+    visibility: hidden;
+    cursor: auto;
+    pointer-events: none;
   }
 
   &__hamburger-closed {
-    background-image: url(../../assets/icons/hamburger.svg);
+    cursor: pointer;
   }
 
   &__mode-play,
