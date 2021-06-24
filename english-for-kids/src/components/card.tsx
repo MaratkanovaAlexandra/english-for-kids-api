@@ -26,13 +26,14 @@ class Card extends PureComponent<CardProps, CardState> {
 
     private getBaseCard = () => {
         return ( 
-            <div className = {"card"}>
-                <div className = {"card__top"}>
+            <div className = {"card"} onMouseLeave = {this.turnBackHandle}>
+                <div className = {this.getTurnTop()}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
                     <p className = {"card__eng"}>{this.props.name}</p>
-                    <div className = {"card__turn"}></div>
+                    <div className = {"card__turn"}
+                         onClick = {this.turnHandle}></div>
                 </div>
-                <div className = {"card__back"}>
+                <div className = {this.getTurnBack()}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
                     <p className = {"card__eng"}>{this.props.transl}</p>
                 </div>
@@ -53,6 +54,24 @@ class Card extends PureComponent<CardProps, CardState> {
     private getBackgroundColor = () => {
         let styles = "card__background ";
         return this.props.playMode ? styles + "play" : styles + "train";
+    }
+
+    private getTurnTop = () => {
+        const styles = "card__top";
+        return this.state.turned? styles + " turn_top" : styles + "";
+    }
+
+    private getTurnBack = () => {
+        const styles = "card__back";
+        return this.state.turned? styles + " turn_back" : styles + "";
+    }
+
+    private turnHandle= () => {
+        this.setState({turned: true});
+    }
+
+    private turnBackHandle= () => {
+        if (this.state.turned) this.setState({turned: false});
     }
 }
  

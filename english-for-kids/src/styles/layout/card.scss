@@ -35,7 +35,7 @@
     width: 100%;
     height: 100%;
 
-    transition: 0.3s;
+    transition: 1.3s;
     backface-visibility: hidden;
 
     background-color: #fff;
@@ -72,11 +72,11 @@
     }
   }
 
-  .turned .card__top {
+  .turn_top {
     transform: rotateY(180deg);
   }
 
-  .turned .card__back {
+  .turn_back {
     transform: rotateY(360deg);
   }
 
