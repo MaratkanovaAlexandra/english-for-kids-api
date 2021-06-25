@@ -1,5 +1,6 @@
 import CardEnum from '../models/card-enum';
 import * as Const from "./const";
+import playAudio from '../utils/audio';
 
 const Redux = {
     state: {
@@ -8,7 +9,8 @@ const Redux = {
         game: false,
         page: Const.MAIN_PAGE,
         cards: CardEnum[Const.MAIN_PAGE],
-        cardPlaing: null,
+        PlayCards: [],
+        cardPlaing: {name: "", img: "", transl: "", sound: ""},
         answers: []
     },
 
@@ -25,11 +27,17 @@ const Redux = {
                 this.state.menuMode = ! this.state.menuMode;
                 break;
             case "changePage" : 
-                console.log(page)
                 this.state.cards = CardEnum[page as string];
                 this.state.page = page as string;
                 break; 
+            case "changeGameMode" :
+                this.state.game = !this.state.game;
+                this.state.PlayCards = [...this.state.cards] as never;
+                this.state.cardPlaing = this.state.PlayCards[Math.floor(Math.random() * this.state.PlayCards.length)];
+                playAudio(this.state.cardPlaing.sound);
+                break;
         }
+        console.log(this.state)
         return this.state;
     }
 }
