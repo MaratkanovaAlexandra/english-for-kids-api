@@ -1,5 +1,6 @@
 import React, { MouseEventHandler, PureComponent } from 'react';
 import Redux from './../models/redux';
+import playAudio from '../utils/audio';
 
 export interface CardProps {
     clickEvent: Function | boolean,
@@ -30,7 +31,7 @@ class Card extends PureComponent<CardProps, CardState> {
     private getBaseCard = () => {
         return ( 
             <div className = {"card"} onMouseLeave = {this.turnBackHandle} >
-                <div className = {this.getTurnTop()} onClick = {this.playAudio}>
+                <div className = {this.getTurnTop()} onClick = {this.cardClick}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
                     {this.getGameCard()}
                 </div>
@@ -83,19 +84,18 @@ class Card extends PureComponent<CardProps, CardState> {
         return this.state.turned? styles + " turn_back" : styles + "";
     }
 
-    private turnHandle= () => {
+    private turnHandle= (event: React.MouseEvent) => {
         this.setState({turned: true});
+        event.stopPropagation();
     }
 
     private turnBackHandle= () => {
         if (this.state.turned) this.setState({turned: false});
     }
 
-    playAudio = () => {
-        //https://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
-        const audio = new Audio("data:audio/wav;base64," + this.props.audio as string);
-        audio.play();
-        
+    cardClick = () => {
+        if (Redux.state.playMode) return;
+        playAudio(this.props.audio as string);
     }
 }
  
