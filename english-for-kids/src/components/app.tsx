@@ -2,41 +2,29 @@ import React, { MouseEvent, PureComponent } from 'react';
 import Header from './header';
 import SideBar from './side-bar';
 import CardsWrapper from './cards-wrapper';
-import * as Const from '../models/const'
+import Redux from './../models/redux';
 
 export interface AppProps {}
  
 export interface AppState {
-    menuMode?: boolean,
-    playMode?:boolean,
-    page: string
 }
  
 class App extends PureComponent<AppProps, AppState> {
-    state = {
-        menuMode : false,
-        playMode : false,
-        page: Const.MAIN_PAGE
-    }
     render() { 
+        console.log(this.state)
         return (
             <React.Fragment>
             <div className = {"wrapper"}>
                 <SideBar  
-                    menuMode = {this.state.menuMode}
-                    playMode = {this.state.playMode}
                     funstions = {[this.pageChangeHandler, this.menuModeHandler]}
-                    page = {this.state.page}
                     />
                 <div className = {"mainApp"}>
                     <Header 
-                        menuMode = {this.state.menuMode} 
-                        playMode = {this.state.playMode}
                         functions = {{play: this.playModeHandler, menu: this.menuModeHandler}}
                         />
-                    <CardsWrapper 
-                      playMode = {this.state.playMode}
-                      page = {this.state.page}
+                    <CardsWrapper
+                    play = {Redux.state.playMode} 
+                      page= {Redux.state.page}
                       clickEvent = {this.pageChangeHandler}
                       />
                 </div>
@@ -46,18 +34,18 @@ class App extends PureComponent<AppProps, AppState> {
     }
 
     private menuModeHandler = () => {
-        this.setState({menuMode: !this.state.menuMode})
+        this.setState( Redux.setState("changeMenuMode"));
     }
 
     private playModeHandler = () => {
-        this.setState({playMode: !this.state.playMode})
+        this.setState( Redux.setState("changePlayMode"));  
     }
 
     private pageChangeHandler = (event:MouseEvent) => {
         const target = event.target as HTMLElement;
         const page = target.innerText === "" ? target.parentElement?.lastElementChild?.innerHTML : target.innerText;
-        if (page === this.state.page) return;
-        this.setState({page: page as string})
+        if (page === Redux.state.page) return;
+        this.setState(Redux.setState("changePage",page));
     }
 }
  

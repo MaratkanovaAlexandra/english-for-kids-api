@@ -1,12 +1,13 @@
 import React, { MouseEventHandler, PureComponent } from 'react';
+import Redux from './../models/redux';
 
 export interface CardProps {
-    clickEvent?: Function | boolean,
-    playMode: boolean,
+    clickEvent: Function | boolean,
     name: string,
-    transl?: string|null,
+    transl: string|null,
     img: string,
-    audio: string|null
+    audio: string|null,
+    play: boolean
 }
  
 export interface CardState {
@@ -28,8 +29,8 @@ class Card extends PureComponent<CardProps, CardState> {
 
     private getBaseCard = () => {
         return ( 
-            <div className = {"card"} onMouseLeave = {this.turnBackHandle} onClick = {this.playAudio}>
-                <div className = {this.getTurnTop()}>
+            <div className = {"card"} onMouseLeave = {this.turnBackHandle} >
+                <div className = {this.getTurnTop()} onClick = {this.playAudio}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
                     {this.getGameCard()}
                 </div>
@@ -42,7 +43,7 @@ class Card extends PureComponent<CardProps, CardState> {
     }
 
     private getGameCard = () => {
-        if(!this.props.playMode) return (
+        if(!Redux.state.playMode) return (
             <React.Fragment>
                 <p className = {"card__eng"}>{this.props.name}</p>
                 <div className = {"card__turn"}
@@ -69,7 +70,7 @@ class Card extends PureComponent<CardProps, CardState> {
 
     private getBackgroundColor = () => {
         let styles = "card__background ";
-        return this.props.playMode ? styles + "play" : styles + "train";
+        return Redux.state.playMode ? styles + "play" : styles + "train";
     }
 
     private getTurnTop = () => {
@@ -93,7 +94,8 @@ class Card extends PureComponent<CardProps, CardState> {
     playAudio = () => {
         //https://stackoverflow.com/questions/17762763/play-wav-sound-file-encoded-in-base64-with-javascript
         const audio = new Audio("data:audio/wav;base64," + this.props.audio as string);
-        audio.play()
+        audio.play();
+        
     }
 }
  

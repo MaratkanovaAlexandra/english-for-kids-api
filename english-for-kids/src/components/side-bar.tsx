@@ -1,11 +1,10 @@
-import React, { MouseEventHandler, PureComponent } from 'react';
+import { MouseEventHandler, PureComponent } from 'react';
 import * as Const from '../models/const';
+import Redux from './../models/redux';
+
 
 export interface SideBarProps {
-    playMode: boolean,
-    menuMode : boolean,
     funstions: Function[],
-    page: string,
 }
  
 export interface SideBarState {}
@@ -33,16 +32,16 @@ class SideBar extends PureComponent<SideBarProps, SideBarState> {
 
     private getState = () => {
         let styles = "sideBar "; 
-        return this.props.menuMode? styles + "open" : styles + "closed";
+        return Redux.state.menuMode? styles + "open" : styles + "closed";
     }
 
     private getPlayMode = () => {
-        return this.props.playMode? " play" : " train";
+        return Redux.state.playMode? " play" : " train";
     } 
 
     private getItemStyle = (name: string) => {
         const styles = "sideBar__item";
-        return name === this.props.page? styles + " choosen" : styles;
+        return name === Redux.state.page? styles + " choosen" : styles;
     }
 }
  

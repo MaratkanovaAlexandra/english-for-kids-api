@@ -1,10 +1,10 @@
 import React, { MouseEventHandler, PureComponent } from 'react';
-import CardEnum from '../models/card-enum';
 import Card from './card';
-import * as Const from "../models/const"
+import * as Const from "../models/const";
+import Redux from './../models/redux';
 
 export interface CardsWrapperProps {
-    playMode: boolean,
+    play: boolean,
     page: string,
     clickEvent: Function
 }
@@ -19,13 +19,12 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
     }
 
     render() { 
-        const CARDS = CardEnum[this.props.page];
-        console.log(this.state.game)
+        console.log(2);
         return ( 
             <React.Fragment>
                 <div className = {"cardWrapper"}>
-                    {CARDS.map((card) => <Card key = {card.name} 
-                                        playMode = {this.props.playMode}
+                    {Redux.state.cards.map((card) => <Card key = {card.name} 
+                                        play = {Redux.state.playMode}
                                         name = {card.name}
                                         img = {card.img}
                                         transl = {card.transl}
@@ -38,12 +37,10 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
     }
 
     private getPlayButton = () => {
-        if (!this.props.playMode) return;
+        if (!Redux.state.playMode) return;
         if (this.state.game) return <button className = {"playButton__repeat"}></button>;
         return <button className = {"playButton__start"}>{Const.START}</button>;
     }
-
-
 }
  
 export default CardsWrapper;
