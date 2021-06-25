@@ -2,6 +2,7 @@ import React, { MouseEventHandler, PureComponent } from 'react';
 import Card from './card';
 import * as Const from "../models/const";
 import Redux from './../models/redux';
+import playAudio from '../utils/audio';
 
 export interface CardsWrapperProps {
     play: boolean,
@@ -14,12 +15,7 @@ export interface CardsWrapperState {
 }
  
 class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
-    state = {
-        game : false,
-    }
-
     render() { 
-        console.log(2);
         return ( 
             <React.Fragment>
                 <div className = {"cardWrapper"}>
@@ -38,8 +34,17 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
 
     private getPlayButton = () => {
         if (!Redux.state.playMode) return;
-        if (this.state.game) return <button className = {"playButton__repeat"}></button>;
-        return <button className = {"playButton__start"}>{Const.START}</button>;
+        if (Redux.state.game) return <button className = {"playButton__repeat"} onClick={this.playButtonClick}></button>;
+        return <button className = {"playButton__start"} onClick={this.playButtonClick}>{Const.START}</button>;
+    }
+
+    private playButtonClick = () => {
+        if (Redux.state.page === Const.MAIN_PAGE) return;
+        if (!Redux.state.game) {
+            this.setState(Redux.setState("changeGameMode"));
+            return;
+        }
+        playAudio(Redux.state.cardPlaing.sound)
     }
 }
  
