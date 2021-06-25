@@ -61,7 +61,6 @@ class Card extends PureComponent<CardProps, CardState> {
         return ( 
             <div className = {"card__page"}
                  onClick = {this.props.clickEvent as MouseEventHandler}>
-                <div className = {this.getBackgroundColor()}></div>
                 <img className = {"card__circleImg"} src={this.props.img} alt={this.props.name} />
                 <p className = {"card__title"}>{this.props.name}</p>
             </div>
