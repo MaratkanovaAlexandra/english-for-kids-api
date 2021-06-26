@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/main.scss';
 import App from './components/app';
+import { createLocalStorage } from './utils/local-store';
 import reportWebVitals from './reportWebVitals';
 
+createLocalStorage();
 ReactDOM.render(
   <React.StrictMode>
     <App />
