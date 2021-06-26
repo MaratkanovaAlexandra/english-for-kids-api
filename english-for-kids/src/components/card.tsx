@@ -8,7 +8,8 @@ export interface CardProps {
     transl: string|null,
     img: string,
     audio: string|null,
-    play: boolean
+    play: boolean,
+    correct: never[]
 }
  
 export interface CardState {
@@ -30,8 +31,9 @@ class Card extends PureComponent<CardProps, CardState> {
 
     private getBaseCard = () => {
         return ( 
-            <div className = {"card"} onMouseLeave = {this.turnBackHandle} >
-                <div className = {this.getTurnTop()} onClick = {() => this.props.cardClick(this.props.name, this.props.audio)}>
+            <div className = {"card"+this.getCorrect(this.props.name)} onMouseLeave = {this.turnBackHandle} >
+                <div className = {this.getTurnTop()} 
+                     onClick = {() => this.props.cardClick(this.props.name, this.props.audio)}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
                     {this.getGameCard()}
                 </div>
@@ -72,6 +74,10 @@ class Card extends PureComponent<CardProps, CardState> {
     private getTurnTop = () => {
         const styles = "card__top";
         return this.state.turned? styles + " turn_top" : styles + "";
+    }
+
+    private getCorrect = (name: string) => {
+        return Redux.state.correctCards.includes(name as never)? " correct": "";
     }
 
     private getTurnBack = () => {
