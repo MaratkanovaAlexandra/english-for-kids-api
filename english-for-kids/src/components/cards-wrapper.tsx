@@ -26,12 +26,14 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
                                         audio = {card.sound}
                                         clickEvent = {!card.transl && this.props.clickEvent as MouseEventHandler}
                                         cardClick = {this.cardClick}
+                                        correct = {Redux.state.correctCards}
                                         />)}
                 </div>
                 <div className = {"answers"}>
                     {Redux.state.answers.map((star) => this.getPoint(star))}
                 </div>
                 {this.getPlayButton()}
+                <div className = {"complImage"}></div>
             </React.Fragment> 
         );
     }
