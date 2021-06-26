@@ -42,10 +42,9 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
         return <button className = {"playButton__start"} onClick={this.playButtonClick}>{Const.START}</button>;
     }
 
-    private getPoint = (point: {name: string, correct: boolean}) => {
-        console.log(point.correct)
-        if (point.correct) return <div key = {point.name} className = {"star fill"}></div>;
-        return <div key = {point.name} className = {"star no-fill"}></div>;
+    private getPoint = (point: {id: number, correct: boolean}) => {
+        if (point.correct) return <div key = {point.id} className = {"star fill"}></div>;
+        return <div key = {point.id} className = {"star no-fill"}></div>;
     }
 
     private playButtonClick = () => {
