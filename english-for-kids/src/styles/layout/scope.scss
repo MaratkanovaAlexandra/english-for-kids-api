@@ -1,0 +1,46 @@
+.categories {
+  width: 69.5%;
+  margin: 0 auto;
+  overflow-x: auto;
+
+  //   &__item {
+  //   }
+
+  &__title {
+    font-family: "Roboto";
+    font-size: 1.765rem;
+    color: $green;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-around;
+    width: 1184px;
+
+    font-size: 1.125rem;
+    font-family: "Roboto";
+  }
+
+  &__word {
+    width: 16.6%;
+    text-align: center;
+  }
+}
+
+.tableTop {
+  display: flex;
+  align-items: center;
+  width: 1184px;
+  height: 40px;
+  background-color: $green;
+
+  &__item {
+    margin: 0;
+    width: 16.6%;
+    text-align: center;
+    color: #fff;
+
+    font-family: "Roboto";
+    font-size: 1.005rem;
+  }
+}
