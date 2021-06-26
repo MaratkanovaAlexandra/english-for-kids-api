@@ -1,9 +1,9 @@
 import React, { MouseEventHandler, PureComponent } from 'react';
 import Redux from './../models/redux';
-import playAudio from '../utils/audio';
 
 export interface CardProps {
     clickEvent: Function | boolean,
+    cardClick: Function,
     name: string,
     transl: string|null,
     img: string,
@@ -31,7 +31,7 @@ class Card extends PureComponent<CardProps, CardState> {
     private getBaseCard = () => {
         return ( 
             <div className = {"card"} onMouseLeave = {this.turnBackHandle} >
-                <div className = {this.getTurnTop()} onClick = {this.cardClick}>
+                <div className = {this.getTurnTop()} onClick = {() => this.props.cardClick(this.props.name, this.props.audio)}>
                     <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
                     {this.getGameCard()}
                 </div>
@@ -69,11 +69,6 @@ class Card extends PureComponent<CardProps, CardState> {
         ); 
     }
 
-    private getBackgroundColor = () => {
-        let styles = "card__background ";
-        return Redux.state.playMode ? styles + "play" : styles + "train";
-    }
-
     private getTurnTop = () => {
         const styles = "card__top";
         return this.state.turned? styles + " turn_top" : styles + "";
@@ -91,11 +86,6 @@ class Card extends PureComponent<CardProps, CardState> {
 
     private turnBackHandle= () => {
         if (this.state.turned) this.setState({turned: false});
-    }
-
-    cardClick = () => {
-        if (Redux.state.playMode) return;
-        playAudio(this.props.audio as string);
     }
 }
  

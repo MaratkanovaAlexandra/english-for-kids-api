@@ -7,11 +7,10 @@ import playAudio from '../utils/audio';
 export interface CardsWrapperProps {
     play: boolean,
     page: string,
-    clickEvent: Function
+    clickEvent: Function,
 }
  
 export interface CardsWrapperState {
-    game: boolean
 }
  
 class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
@@ -25,7 +24,12 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
                                         img = {card.img}
                                         transl = {card.transl}
                                         audio = {card.sound}
-                                        clickEvent = {!card.transl && this.props.clickEvent as MouseEventHandler}/>)}
+                                        clickEvent = {!card.transl && this.props.clickEvent as MouseEventHandler}
+                                        cardClick = {this.cardClick}
+                                        />)}
+                </div>
+                <div className = {"answers"}>
+                    {Redux.state.answers.map((star) => this.getPoint(star))}
                 </div>
                 {this.getPlayButton()}
             </React.Fragment> 
@@ -38,13 +42,28 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
         return <button className = {"playButton__start"} onClick={this.playButtonClick}>{Const.START}</button>;
     }
 
+    private getPoint = (point: {name: string, correct: boolean}) => {
+        console.log(point.correct)
+        if (point.correct) return <div key = {point.name} className = {"star fill"}></div>;
+        return <div key = {point.name} className = {"star no-fill"}></div>;
+    }
+
     private playButtonClick = () => {
         if (Redux.state.page === Const.MAIN_PAGE) return;
         if (!Redux.state.game) {
             this.setState(Redux.setState("changeGameMode"));
             return;
         }
-        playAudio(Redux.state.cardPlaing.sound)
+        playAudio(Redux.state.cardPlaing.sound);
+    }
+
+    
+    private cardClick = (name: string, audio: string) => {
+        if (Redux.state.playMode) {
+            this.setState(Redux.setState("changeCard",name));
+            return;
+        }
+        playAudio(audio);
     }
 }
  

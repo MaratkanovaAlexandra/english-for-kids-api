@@ -138,3 +138,24 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.star {
+  height: 40px;
+  width: 40px;
+  background-size: cover;
+  margin-bottom: 20px;
+}
+
+.fill {
+  background-image: url(../../assets/images/correct-point.png);
+}
+
+.no-fill {
+  background-image: url(../../assets/images/wrong-point.png);
+}
+
+.answers {
+  position: fixed;
+  right: 10px;
+  bottom: 100px;
+}
