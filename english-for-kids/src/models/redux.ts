@@ -14,7 +14,8 @@ const Redux = {
         PlayCards: [],
         cardPlaing: {name: "", img: "", transl: "", sound: ""},
         correctCards: [],
-        answers: []
+        answers: [],
+        complImage: ""
     },
 
     getState: function() {
@@ -25,6 +26,7 @@ const Redux = {
         switch(type) {
             case "changePlayMode" : 
                 this.state.playMode = ! this.state.playMode;
+                this.resetPage();
                 break;
             case "changeMenuMode" : 
                 this.state.menuMode = ! this.state.menuMode;
@@ -37,7 +39,7 @@ const Redux = {
             case "changeGameMode" :
                 this.state.game = !this.state.game;
                 this.state.PlayCards = [...this.state.cards] as never;
-                this.getNewCardPlaing()
+                this.getNewCardPlaing();
                 break;
             case "changeCard" :
                 if (this.state.cardPlaing.name === input as string) {
@@ -46,6 +48,7 @@ const Redux = {
                     playAudio(Sound.correct);
                     if (this.state.PlayCards.length === 0) {
                         this.reset();
+                        this.showImage();
                         break;
                     };
                     setTimeout(() => this.getNewCardPlaing(),1000);
@@ -66,6 +69,14 @@ const Redux = {
     },
 
     reset: function() {
+        if (this.state.answers.length === 8) {
+            this.state.complImage = "win";
+            console.log("win");
+        } else {
+            this.state.complImage = "lose";
+            console.log("lose");
+        }
+
         this.state.menuMode = false;
         this.state.game = false;
         this.state.page = Const.MAIN_PAGE;
@@ -82,6 +93,24 @@ const Redux = {
         this.state.cardPlaing = {name: "", img: "", transl: "", sound: ""};
         this.state.correctCards = [];
         this.state.answers = [];
+    },
+
+    showImage: function() {
+        const IMAGE = document.querySelector(".complImage") as HTMLElement;
+        if (this.state.complImage === "win") {
+            playAudio(Sound.success);
+            IMAGE.classList.add("win");
+        } else {
+            IMAGE.classList.add("lose");
+            playAudio(Sound.failure);
+        }
+        
+        IMAGE.style.display = "block";
+        setTimeout(() => {
+            IMAGE.style.display = "none";
+            IMAGE.classList.remove("win");
+            IMAGE.classList.remove("lose");
+        }, 3000)
     }
 }
 
