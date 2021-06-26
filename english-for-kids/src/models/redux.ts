@@ -42,23 +42,8 @@ const Redux = {
                 this.getNewCardPlaing();
                 break;
             case "changeCard" :
-                if (this.state.cardPlaing.name === input as string) {
-                    this.state.answers = [...this.state.answers, {id: id+=1, correct: true} as never];
-                    this.state.correctCards = [...this.state.correctCards, this.state.cardPlaing.name as never];
-                    playAudio(Sound.correct);
-                    if (this.state.PlayCards.length === 0) {
-                        this.reset();
-                        this.showImage();
-                        break;
-                    };
-                    setTimeout(() => this.getNewCardPlaing(),1000);
-                } else {        
-                    this.state.answers = [...this.state.answers, {id: id+=1, correct: false} as never];
-                    playAudio(Sound.error);
-                }
-                break;
+               this.changeCardReduser(input as string);
         }
-        console.log(this.state)
         return this.state;
     },
 
@@ -111,6 +96,30 @@ const Redux = {
             IMAGE.classList.remove("win");
             IMAGE.classList.remove("lose");
         }, 3000)
+    },
+
+    changeCardReduser: function(input: string) {
+        if (this.state.cardPlaing.name === input) {
+            this.state.answers = [...this.state.answers, {id: id+=1, correct: true} as never];
+            this.state.correctCards = [...this.state.correctCards, this.state.cardPlaing.name as never];
+            playAudio(Sound.correct);
+            const STATS = JSON.parse(localStorage[`${input}`]);
+            STATS.correctClick += 1;
+            localStorage.setItem(`${input}`, JSON.stringify(STATS));
+            if (this.state.PlayCards.length === 0) {
+                this.reset();
+                this.showImage();
+                return;
+            };
+            setTimeout(() => this.getNewCardPlaing(),1000);
+        } else {        
+            this.state.answers = [...this.state.answers, {id: id+=1, correct: false} as never];
+            playAudio(Sound.error);
+            const STATS = JSON.parse(localStorage[`${input}`]);
+            STATS.wrongClick += 1;
+            localStorage.setItem(`${input}`, JSON.stringify(STATS));
+        }
+        console.log(JSON.parse(localStorage[`${input}`]));
     }
 }
 
