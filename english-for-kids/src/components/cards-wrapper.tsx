@@ -65,6 +65,9 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
             return;
         }
         playAudio(audio);
+        const STATS =  JSON.parse(localStorage[`${name}`]);
+        STATS.trainClick += 1;
+        localStorage.setItem(`${name}`, JSON.stringify(STATS));
     }
 }
  
