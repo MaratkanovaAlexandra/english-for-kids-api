@@ -1,8 +1,10 @@
 import React, { MouseEvent, PureComponent } from 'react';
+import * as Const from "../models/const" 
 import Header from './header';
 import SideBar from './side-bar';
 import CardsWrapper from './cards-wrapper';
 import Redux from './../models/redux';
+import Scope from './scope';
 
 export interface AppProps {}
  
@@ -11,7 +13,6 @@ export interface AppState {
  
 class App extends PureComponent<AppProps, AppState> {
     render() { 
-        console.log(this.state)
         return (
             <React.Fragment>
             <div className = {"wrapper"}>
@@ -22,11 +23,7 @@ class App extends PureComponent<AppProps, AppState> {
                     <Header 
                         functions = {{play: this.playModeHandler, menu: this.menuModeHandler}}
                         />
-                    <CardsWrapper
-                    play = {Redux.state.playMode} 
-                      page= {Redux.state.page}
-                      clickEvent = {this.pageChangeHandler}
-                      />
+                    {this.getPage()}
                 </div>
             </div>
             </React.Fragment>
@@ -39,6 +36,17 @@ class App extends PureComponent<AppProps, AppState> {
 
     private playModeHandler = () => {
         this.setState( Redux.setState("changePlayMode"));  
+    }
+
+    private getPage = () => {
+        if (Redux.state.page === Const.SCOPE) return  <Scope />
+        return (
+            <CardsWrapper
+                      play = {Redux.state.playMode} 
+                      page= {Redux.state.page}
+                      clickEvent = {this.pageChangeHandler}
+                      />
+        )
     }
 
     private pageChangeHandler = (event:MouseEvent) => {
