@@ -159,3 +159,32 @@
   right: 10px;
   bottom: 100px;
 }
+
+.correct {
+  opacity: 0.6;
+  pointer-events: none;
+  filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.5));
+}
+
+.complImage {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  z-index: 10;
+}
+
+.win {
+  background-image: url(../../assets/images/depositphotos_124093210-stock-illustration-well-done-decorative-lettering-text.jpg);
+}
+
+.lose {
+  background-image: url(../../assets/images/istockphoto-1182313635-612x612.jpg);
+}
