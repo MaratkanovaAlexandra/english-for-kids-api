@@ -10,5 +10,6 @@ export const CLOTHES = "Clothes";
 export const EMOTION = "Emotion";
 
 export const LOGIN = "Login";
+export const SCOPE = "Hacker scope";
 
 export const START = "start";

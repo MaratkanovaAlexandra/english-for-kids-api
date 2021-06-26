@@ -24,6 +24,7 @@ class SideBar extends PureComponent<SideBarProps, SideBarState> {
                 <li className = {this.getItemStyle(Const.ANIMAL_B)}>{Const.ANIMAL_B}</li>
                 <li className = {this.getItemStyle(Const.CLOTHES)}>{Const.CLOTHES}</li>
                 <li className = {this.getItemStyle(Const.EMOTION)}>{Const.EMOTION}</li>
+                <li className = {this.getItemStyle(Const.SCOPE)}>{Const.SCOPE}</li>
             </ul>
             <button className = {"login_button"}>{Const.LOGIN}</button>
         </div>
