@@ -1,21 +1,27 @@
-import React, { PureComponent } from 'react';
+import React, { MouseEventHandler, PureComponent } from 'react';
 import CardEnum from '../models/card-enum';
-import * as Const from "../models/const"
+import * as Const from "../models/const";
+import { cleanLocalStorage } from '../utils/local-store';
 
 export interface ScopeProps {
-    
+    repeat: Function
 }
  
 export interface ScopeState {
-    sort: string
 }
  
 class Scope extends PureComponent<ScopeProps, ScopeState> {
-    state = {sort: ""};
+    state = {
+        sort: ""
+    };
     render() { 
         return ( 
             <React.Fragment>
                 <div >
+                    <div className = "buttons">
+                        <button className = "repeat-button" onClick = {this.props.repeat as MouseEventHandler}>{Const.REPEAT}</button>
+                        <button className = "reset-button" onClick = {this.cleanData}>{Const.RESET}</button>
+                    </div>
                     {CardEnum[Const.MAIN_PAGE].map((element) => this.getCategories(element.name))}
                 </div>
             </React.Fragment>
@@ -100,6 +106,11 @@ class Scope extends PureComponent<ScopeProps, ScopeState> {
             }
             return 0;
           }); 
+    }
+
+    private cleanData = () => {
+        cleanLocalStorage();
+        this.setState({sort: ""});
     }
 }
  
