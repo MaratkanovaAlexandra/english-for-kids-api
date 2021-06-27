@@ -1,7 +1,8 @@
 import CardEnum from '../models/card-enum';
 import * as Const from "./const";
 import playAudio from '../utils/audio';
-import * as Sound from "./sound-effects"
+import * as Sound from "./sound-effects";
+import {findCard} from "../utils/card-searcher";
 
 let id = 1;
 const Redux = {
@@ -22,7 +23,7 @@ const Redux = {
         return this.state;
     },
 
-    setState: function(type: string, input? :string) {
+    setState: function(type: string, input? :string|{name: string, wrong: number}[]) {
         switch(type) {
             case "changePlayMode" : 
                 this.state.playMode = ! this.state.playMode;
@@ -43,6 +44,10 @@ const Redux = {
                 break;
             case "changeCard" :
                this.changeCardReduser(input as string);
+               break;
+            case "repeatWords":
+                this.repeatWorrds(input as {name: string, wrong: number}[])
+                break;
         }
         return this.state;
     },
@@ -54,12 +59,13 @@ const Redux = {
     },
 
     reset: function() {
-        if (this.state.answers.length === 8) {
+        const CORRECT = this.state.answers.filter((point) => {
+            return !(point as {id: number, correct: boolean}).correct
+        });
+        if (CORRECT.length === 0) {
             this.state.complImage = "win";
-            console.log("win");
         } else {
             this.state.complImage = "lose";
-            console.log("lose");
         }
 
         this.state.menuMode = false;
@@ -119,7 +125,18 @@ const Redux = {
             STATS.wrongClick += 1;
             localStorage.setItem(`${input}`, JSON.stringify(STATS));
         }
-        console.log(JSON.parse(localStorage[`${input}`]));
+    },
+
+    repeatWorrds: function (input: {name: string, wrong: number}[]) {
+        const CARDS:
+        {name: string, transl: string, img: string, sound: string}[]| 
+        {name: string, transl: null, img: string, sound: null}[] = []
+        input.forEach((card) => {
+            CARDS.push(findCard(card.name) as never);
+        });
+        this.state.page = "repeat";
+        this.state.cards = CARDS;
+        this.resetPage();
     }
 }
 
