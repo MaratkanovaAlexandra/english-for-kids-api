@@ -1,9 +1,9 @@
 .categories {
   width: 69.5%;
   margin: 0 auto;
+  padding-bottom: 40px;
 
   &__title {
-    margin-top: 60px;
     font-family: "Roboto";
     font-size: 1.765rem;
     color: $green;
@@ -41,7 +41,7 @@
   background: $horGreenGradient;
 
   &__item {
-    padding: 10px 0;
+    padding: 11px 0;
     margin: 0;
     width: 16.666666%;
 
@@ -62,5 +62,34 @@
   .selected {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     background: $horRedGradient;
+  }
+}
+
+.buttons {
+  display: flex;
+  width: 69.5%;
+  margin: 0 auto;
+}
+
+.repeat-button,
+.reset-button {
+  font-family: "Roboto";
+  font-size: 1.125rem;
+
+  height: 40px;
+  padding: 0 20px;
+  margin-right: 20px;
+  transition: 0.3s;
+  will-change: transform;
+
+  color: #fff;
+  text-transform: uppercase;
+  background: $horGreenGradient;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    transform: scale(1.1);
   }
 }
