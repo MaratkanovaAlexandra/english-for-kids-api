@@ -5,3 +5,30 @@
 .mainApp {
   width: 100%;
 }
+
+.git {
+  height: 70px;
+  width: 70px;
+  background-image: url(../../assets/icons/github.svg);
+  background-size: cover;
+  display: block;
+
+  margin-bottom: 40px;
+}
+
+.rss {
+  height: 75px;
+  width: 203px;
+  background-image: url(../../assets/icons/rss.svg);
+  background-size: cover;
+  display: block;
+}
+
+.footer {
+  position: absolute;
+  left: 10px;
+  bottom: 20px;
+
+  width: 100px;
+  height: 185px;
+}
