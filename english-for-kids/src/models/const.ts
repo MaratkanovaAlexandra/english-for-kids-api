@@ -12,4 +12,9 @@ export const EMOTION = "Emotion";
 export const LOGIN = "Login";
 export const SCOPE = "Hacker scope";
 
+// Game
 export const START = "start";
+
+// Scope 
+export const REPEAT = "repeat";
+export const RESET = "reset";
