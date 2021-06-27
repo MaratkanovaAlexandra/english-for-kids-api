@@ -25,6 +25,10 @@ class App extends PureComponent<AppProps, AppState> {
                         />
                     {this.getPage()}
                 </div>
+                <footer className = {"footer"}>
+                    <a className = {"git"} href = {"https://github.com/MaratkanovaAlexandra"}>{""}</a>
+                    <a className = {"rss"} href = {"https://rs.school/js/"}>{""}</a>
+                </footer>
             </div>
             </React.Fragment>
         );
