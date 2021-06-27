@@ -39,7 +39,7 @@ class App extends PureComponent<AppProps, AppState> {
     }
 
     private getPage = () => {
-        if (Redux.state.page === Const.SCOPE) return  <Scope />
+        if (Redux.state.page === Const.SCOPE) return  <Scope  repeat = {this.handeleRepeat}/>
         return (
             <CardsWrapper
                       play = {Redux.state.playMode} 
@@ -54,6 +54,28 @@ class App extends PureComponent<AppProps, AppState> {
         const page = target.innerText === "" ? target.parentElement?.lastElementChild?.innerHTML : target.innerText;
         if (page === Redux.state.page) return;
         this.setState(Redux.setState("changePage",page));
+    }
+
+    private handeleRepeat = () => {
+        let resutl:{name: string, wrong: number}[] = []
+        for (const key in localStorage) {
+            if (typeof localStorage[key] !== "string") break;
+            const STATS = JSON.parse(localStorage[key]);
+            if (STATS.wrongClick !== 0) {
+                resutl.push({name: key, wrong: STATS.wrongClick});
+            }
+        }
+        resutl.sort((a, b) => {
+            if (a.wrong > b.wrong) {
+              return -1;
+            }
+            if (a.wrong < b.wrong) {
+              return 1;
+            }
+            return 0;
+        }); 
+        resutl = resutl.splice(0,8)
+        this.setState(Redux.setState("repeatWords", resutl))
     }
 }
  
