@@ -1,12 +1,9 @@
 .categories {
   width: 69.5%;
   margin: 0 auto;
-  overflow-x: auto;
-
-  //   &__item {
-  //   }
 
   &__title {
+    margin-top: 60px;
     font-family: "Roboto";
     font-size: 1.765rem;
     color: $green;
@@ -15,10 +12,11 @@
   &__item {
     display: flex;
     justify-content: space-around;
-    width: 1184px;
+    width: 1192px;
 
     font-size: 1.125rem;
     font-family: "Roboto";
+    border-bottom: 1px solid $gray;
   }
 
   &__word {
@@ -27,20 +25,42 @@
   }
 }
 
+.category {
+  width: 100%;
+  overflow-x: auto;
+  border-bottom: 5px solid $gray;
+  border-left: 1px solid $gray;
+  border-right: 1px solid $gray;
+}
+
 .tableTop {
   display: flex;
   align-items: center;
-  width: 1184px;
+  width: 1192px;
   height: 40px;
-  background-color: $green;
+  background: $horGreenGradient;
 
   &__item {
+    padding: 10px 0;
     margin: 0;
-    width: 16.6%;
+    width: 16.666666%;
+
+    cursor: pointer;
+    transition: 0.3s;
+
     text-align: center;
     color: #fff;
 
     font-family: "Roboto";
     font-size: 1.005rem;
+
+    &:hover {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .selected {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    background: $horRedGradient;
   }
 }
