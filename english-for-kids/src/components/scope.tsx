@@ -7,10 +7,11 @@ export interface ScopeProps {
 }
  
 export interface ScopeState {
-    
+    sort: string
 }
  
 class Scope extends PureComponent<ScopeProps, ScopeState> {
+    state = {sort: ""};
     render() { 
         return ( 
             <React.Fragment>
@@ -22,29 +23,37 @@ class Scope extends PureComponent<ScopeProps, ScopeState> {
     }
 
     private getCategories = (name: string) => {
-        const CATEGORY = CardEnum[name];
+        const CATEGORY =  this.getCategory(name);
+        if (this.state.sort !== "") this.sortArray(CATEGORY);
         return (
             <div key = {name} className = {"categories"}>
                 <h2 className = {"categories__title"}>{name}</h2>
-                {/* className = {"categories__item"} */}
+                <div className = {"category"}>
                 <div className = {"tableTop"}>
-                    <p className = {"tableTop__item"}>{"word"}</p>
-                    <p className = {"tableTop__item"}>{"translation"}</p>
-                    <p className = {"tableTop__item"}>{"train clicks"}</p>
-                    <p className = {"tableTop__item"}>{"correct answers"}</p>
-                    <p className = {"tableTop__item"}>{"wrong answers"}</p>
-                    <p className = {"tableTop__item"}>{"correct answers percent"}</p>
+                    <p className = {this.getTabletopStyles("word")} onClick = {this.sortWords}>{"word"}</p>
+                    <p className = {this.getTabletopStyles("translation")} onClick = {this.sortWords}>{"translation"}</p>
+                    <p className = {this.getTabletopStyles("train clicks")} onClick = {this.sortWords}>{"train clicks"}</p>
+                    <p className = {this.getTabletopStyles("correct answers")} onClick = {this.sortWords}>{"correct answers"}</p>
+                    <p className = {this.getTabletopStyles("wrong answers")} onClick = {this.sortWords}>{"wrong answers"}</p>
+                    <p className = {this.getTabletopStyles("correct answers percent")} 
+                       onClick = {this.sortWords}>{"correct answers percent"}</p>
                 </div>
-                {CATEGORY.map(word => <div  key = {word.name} className = {"categories__item"}>
-                                        <p  className = {"categories__word"}>{word.name}</p>
-                                        <p  className = {"categories__word"}>{word.transl}</p>
-                                        <p  className = {"categories__word"}>{JSON.parse(localStorage[`${word.name}`]).trainClick}</p>
-                                        <p  className = {"categories__word"}>{JSON.parse(localStorage[`${word.name}`]).correctClick}</p>
-                                        <p  className = {"categories__word"}>{JSON.parse(localStorage[`${word.name}`]).wrongClick}</p>
-                                        <p  className = {"categories__word"}>{this.getPercent(word.name)}</p>
+                {CATEGORY.map(word => <div  key = {word.word} className = {"categories__item"}>
+                                        <p  className = {"categories__word"}>{word.word}</p>
+                                        <p  className = {"categories__word"}>{word.translation}</p>
+                                        <p  className = {"categories__word"}>{word['train clicks']}</p>
+                                        <p  className = {"categories__word"}>{word['correct answers']}</p>
+                                        <p  className = {"categories__word"}>{word["wrong answers"]}</p>
+                                        <p  className = {"categories__word"}>{word["correct answers percent"]}</p>
                                     </div>)}
+                </div>
             </div>
         )
+    }
+
+    private getTabletopStyles = (text: string) => {
+        const styles = "tableTop__item";
+        return text === this.state.sort? styles + " selected" : styles;
     }
 
     private getPercent = (name:string) => {
@@ -53,6 +62,44 @@ class Scope extends PureComponent<ScopeProps, ScopeState> {
         if (ALL_ANSWERS === 0) return "0%";
         const RESULT = (STATS.correctClick/ALL_ANSWERS)*100;
         return RESULT%100 === 0? `${RESULT}%` : `${RESULT.toFixed(2)}%`;
+    }
+
+    private sortWords = (event: React.MouseEvent) => {
+        const TEXT = (event.target as HTMLElement).innerText;
+        if (TEXT === this.state.sort) {
+            this.setState({sort: ""});
+            return;
+        }
+        this.setState({sort: TEXT});
+    }
+
+    private getCategory = (name: string) => {
+        const WORDS = CardEnum[name];
+        const RESULT:{ [key: string]: string|number}[] = [];
+
+        WORDS.forEach(word => {
+            const STATS = JSON.parse(localStorage[`${word.name}`]);
+            const ITEM:{ [key: string]: string|number} = {word: word.name,
+                          translation: word.transl as string,
+                          'train clicks': STATS.trainClick,
+                          "correct answers": STATS.correctClick,
+                          "wrong answers": STATS.wrongClick,
+                          "correct answers percent": this.getPercent(word.name)};
+            RESULT.push(ITEM);
+        });
+        return RESULT;
+    }
+
+    private sortArray = (array: { [key: string]: string|number}[])  => {
+        array.sort((a, b) => {
+            if (a[this.state.sort] > b[`${this.state.sort}`]) {
+              return 1;
+            }
+            if (a[`${this.state.sort}`] < b[`${this.state.sort}`]) {
+              return -1;
+            }
+            return 0;
+          }); 
     }
 }
  
