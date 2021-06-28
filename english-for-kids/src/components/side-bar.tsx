@@ -1,6 +1,6 @@
-import { MouseEventHandler, PureComponent } from 'react';
-import * as Const from '../models/const';
-import Redux from './../models/redux';
+import { MouseEventHandler, PureComponent } from "react";
+import * as Const from "../models/const";
+import Redux from "./../models/redux";
 
 
 export interface SideBarProps {
