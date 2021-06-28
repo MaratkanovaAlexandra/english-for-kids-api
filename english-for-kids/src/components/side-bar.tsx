@@ -1,49 +1,65 @@
-import { MouseEventHandler, PureComponent } from "react";
+import React, { MouseEventHandler, PureComponent } from "react";
 import * as Const from "../models/const";
-import Redux from "./../models/redux";
-
+import Redux from "../models/redux";
 
 export interface SideBarProps {
-    funstions: Function[],
+  funstions: Function[];
 }
- 
+
 export interface SideBarState {}
- 
+
 class SideBar extends PureComponent<SideBarProps, SideBarState> {
-    render() { 
-        return ( 
-        <div className = {this.getState() + this.getPlayMode()}>
-            <div className = {"sideBar__cross"} onClick = {this.props.funstions[1] as MouseEventHandler} ></div>
-            <ul className = {"sideBar__items"} onClick = {this.props.funstions[0] as MouseEventHandler}>
-                <li className = {this.getItemStyle(Const.MAIN_PAGE)}>{Const.MAIN_PAGE}</li>
-                <li className = {this.getItemStyle(Const.ACTION_A)}>{Const.ACTION_A}</li>
-                <li className = {this.getItemStyle(Const.ACTION_B)}>{Const.ACTION_B}</li>
-                <li className = {this.getItemStyle(Const.ACTION_C)}>{Const.ACTION_C}</li>
-                <li className = {this.getItemStyle(Const.ADJECTIVE)}>{Const.ADJECTIVE}</li>
-                <li className = {this.getItemStyle(Const.ANIMAL_A)}>{Const.ANIMAL_A}</li>
-                <li className = {this.getItemStyle(Const.ANIMAL_B)}>{Const.ANIMAL_B}</li>
-                <li className = {this.getItemStyle(Const.CLOTHES)}>{Const.CLOTHES}</li>
-                <li className = {this.getItemStyle(Const.EMOTION)}>{Const.EMOTION}</li>
-                <li className = {this.getItemStyle(Const.SCOPE)}>{Const.SCOPE}</li>
-            </ul>
-            <button className = {"login_button"}>{Const.LOGIN}</button>
-        </div>
-        );
-    }
+  private getState = Redux.state.menuMode ? "sideBar open " : "sideBar closed ";
 
-    private getState = () => {
-        let styles = "sideBar "; 
-        return Redux.state.menuMode? styles + "open" : styles + "closed";
-    }
+  private getPlayMode = Redux.state.playMode ? "play" : "train";
 
-    private getPlayMode = () => {
-        return Redux.state.playMode? " play" : " train";
-    } 
+  private cross = (
+    <button
+      type="button"
+      className="sideBar__cross"
+      onClick={this.props.funstions[1] as MouseEventHandler}
+    />)
 
-    private getItemStyle = (name: string) => {
-        const styles = "sideBar__item";
-        return name === Redux.state.page? styles + " choosen" : styles;
-    }
+  private getItemStyle = (name: string) => (name === Redux.state.page ? "sideBar__item choosen" : "sideBar__item");
+
+  render() {
+    const { funstions } = this.props;
+    return (
+      <div className={this.getState + this.getPlayMode}>
+        {this.cross}
+        <ul
+          className="sideBar__items"
+          onClick={funstions[0] as MouseEventHandler}
+        >
+          <li className={this.getItemStyle(Const.MAIN_PAGE)}>
+            {Const.MAIN_PAGE}
+          </li>
+          <li className={this.getItemStyle(Const.ACTION_A)}>
+            {Const.ACTION_A}
+          </li>
+          <li className={this.getItemStyle(Const.ACTION_B)}>
+            {Const.ACTION_B}
+          </li>
+          <li className={this.getItemStyle(Const.ACTION_C)}>
+            {Const.ACTION_C}
+          </li>
+          <li className={this.getItemStyle(Const.ADJECTIVE)}>
+            {Const.ADJECTIVE}
+          </li>
+          <li className={this.getItemStyle(Const.ANIMAL_A)}>
+            {Const.ANIMAL_A}
+          </li>
+          <li className={this.getItemStyle(Const.ANIMAL_B)}>
+            {Const.ANIMAL_B}
+          </li>
+          <li className={this.getItemStyle(Const.CLOTHES)}>{Const.CLOTHES}</li>
+          <li className={this.getItemStyle(Const.EMOTION)}>{Const.EMOTION}</li>
+          <li className={this.getItemStyle(Const.SCOPE)}>{Const.SCOPE}</li>
+        </ul>
+        <button type="button" className="login_button">{Const.LOGIN}</button>
+      </div>
+    );
+  }
 }
- 
+
 export default SideBar;
