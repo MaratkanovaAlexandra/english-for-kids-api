@@ -9,23 +9,23 @@ export interface SideBarProps {
 export interface SideBarState {}
 
 class SideBar extends PureComponent<SideBarProps, SideBarState> {
-  private getState = Redux.state.menuMode ? "sideBar open " : "sideBar closed ";
-
-  private getPlayMode = Redux.state.playMode ? "play" : "train";
-
   private cross = (
-    <button
-      type="button"
+    <div
+      role="figure"
       className="sideBar__cross"
       onClick={this.props.funstions[1] as MouseEventHandler}
     />)
+
+  private getState = () => (Redux.state.menuMode ? "sideBar open " : "sideBar closed ")
+
+  private getPlayMode = () => (Redux.state.playMode ? "play" : "train")
 
   private getItemStyle = (name: string) => (name === Redux.state.page ? "sideBar__item choosen" : "sideBar__item");
 
   render() {
     const { funstions } = this.props;
     return (
-      <div className={this.getState + this.getPlayMode}>
+      <div className={this.getState() + this.getPlayMode()}>
         {this.cross}
         <ul
           className="sideBar__items"
