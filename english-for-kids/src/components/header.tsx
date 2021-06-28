@@ -8,21 +8,22 @@ export interface HeaderProps {
 export interface HeaderState {}
 
 class Header extends PureComponent<Readonly<HeaderProps>, HeaderState> {
-  private getHamburger = Redux.state.menuMode ? "header__hamburger-open" : "header__hamburger-closed";
+  private getHamburger = () => (Redux.state.menuMode ? "header__hamburger-open" : "header__hamburger-closed")
 
-  private getMode = Redux.state.playMode ? "header__mode-play" : "header__mode-train";
+  private getMode = () => (Redux.state.playMode ? "header__mode-play" : "header__mode-train")
 
   render() {
+    console.log(Redux.state.menuMode, this.getHamburger());
     return (
       <header className="header">
         <div
           role="figure"
-          className={this.getHamburger}
+          className={this.getHamburger()}
           onClick={this.props.functions.menu as MouseEventHandler}
         />
         <div
           role="figure"
-          className={this.getMode}
+          className={this.getMode()}
           onClick={this.props.functions.play as MouseEventHandler}
         />
       </header>
