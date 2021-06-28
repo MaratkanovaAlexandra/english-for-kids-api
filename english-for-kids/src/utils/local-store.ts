@@ -1,5 +1,5 @@
-import CardEnum from '../models/card-enum';
-import * as Const from '../models/const';
+import CardEnum from "../models/card-enum";
+import * as Const from "../models/const";
 
 export function createLocalStorage() {
   Object.keys(CardEnum).forEach((key) => {
