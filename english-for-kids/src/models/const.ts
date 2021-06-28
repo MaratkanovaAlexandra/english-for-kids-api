@@ -1,4 +1,4 @@
-// Side Bar 
+// Side Bar
 export const MAIN_PAGE = "Main Page";
 export const ACTION_A = "Action (set A)";
 export const ACTION_B = "Action (set B)";
@@ -15,6 +15,6 @@ export const SCOPE = "Hacker scope";
 // Game
 export const START = "start";
 
-// Scope 
+// Scope
 export const REPEAT = "repeat";
 export const RESET = "reset";
