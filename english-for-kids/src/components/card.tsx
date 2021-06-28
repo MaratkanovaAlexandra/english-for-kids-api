@@ -1,98 +1,85 @@
 import React, { MouseEventHandler, PureComponent } from "react";
-import Redux from "./../models/redux";
+import Redux from "../models/redux";
 
 export interface CardProps {
-    clickEvent: Function | boolean,
-    cardClick: Function,
-    name: string,
-    transl: string|null,
-    img: string,
-    audio: string|null,
-    play: boolean,
-    correct: never[]
+  clickEvent: Function | boolean;
+  cardClick: Function;
+  name: string;
+  transl: string | null;
+  img: string;
+  audio: string | null;
+  play: boolean;
+  correct: never[];
 }
- 
+
 export interface CardState {
-    turned: boolean
+  turned: boolean;
 }
- 
+
 class Card extends PureComponent<CardProps, CardState> {
-    state = {
-        turned: false
-    }
-    render() { 
-        return this.getCardType();
-    }
+  state = {
+    turned: false,
+  };
 
-    private getCardType = () => {
-        if (!this.props.transl) return this.getMainPageCard();
-        return this.getBaseCard();
-    }
+  private getCardType = () => {
+    if (!this.props.transl) return this.getMainPageCard();
+    return this.getBaseCard();
+  };
 
-    private getBaseCard = () => {
-        return ( 
-            <div className = {"card"+this.getCorrect(this.props.name)} onMouseLeave = {this.turnBackHandle} >
-                <div className = {this.getTurnTop()} 
-                     onClick = {() => this.props.cardClick(this.props.name, this.props.audio)}>
-                    <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
-                    {this.getGameCard()}
-                </div>
-                <div className = {this.getTurnBack()}>
-                    <img className = {"card__img"} src={this.props.img} alt={this.props.name} />
-                    <p className = {"card__eng"}>{this.props.transl}</p>
-                </div>
-            </div>
-        );
-    }
+  private getBaseCard = () => (
+    <div className={`card ${this.getCorrect(this.props.name)}`} onMouseLeave={this.turnBackHandle}>
+      <div role="figure" className={this.getTurnTop} onClick={() => this.props.cardClick(this.props.name, this.props.audio)}>
+        <img className="card__img" src={this.props.img} alt={this.props.name} />
+        {this.getGameCard()}
+      </div>
+      <div className={this.getTurnBack}>
+        <img className="card__img" src={this.props.img} alt={this.props.name} />
+        <p className="card__eng">{this.props.transl}</p>
+      </div>
+    </div>
+  );
 
-    private getGameCard = () => {
-        if(!Redux.state.playMode) return (
-            <React.Fragment>
-                <p className = {"card__eng"}>{this.props.name}</p>
-                <div className = {"card__turn"}
-                onClick = {this.turnHandle}></div>
-            </React.Fragment>
-        );
-
-        return (
-            <React.Fragment>
-                <p className = {"card__eng"}>{""}</p>
-            </React.Fragment> 
-        );
+  private getGameCard = () => {
+    if (!Redux.state.playMode) {
+      return (
+        <>
+          <p className="card__eng">{this.props.name}</p>
+          <div role="figure" className="card__turn" onClick={this.turnHandle} />
+        </>
+      );
     }
+    return (
+      <>
+        <p className="card__eng" />
+      </>
+    );
+  };
 
-    private getMainPageCard = () => {
-        return ( 
-            <div className = {"card__page"}
-                 onClick = {this.props.clickEvent as MouseEventHandler}>
-                <img className = {"card__circleImg"} src={this.props.img} alt={this.props.name} />
-                <p className = {"card__title"}>{this.props.name}</p>
-            </div>
-        ); 
-    }
+  private getMainPageCard = () => (
+    <div role="figure" className="card__page" onClick={this.props.clickEvent as MouseEventHandler}>
+      <img className="card__circleImg" src={this.props.img} alt={this.props.name} />
+      <p className="card__title">{this.props.name}</p>
+    </div>
+  );
 
-    private getTurnTop = () => {
-        const styles = "card__top";
-        return this.state.turned? styles + " turn_top" : styles + "";
-    }
+  private getTurnTop = this.state.turned ? "card__top turn_top" : "card__top";
 
-    private getCorrect = (name: string) => {
-        return Redux.state.correctCards.includes(name as never)? " correct": "";
-    }
+  private getCorrect = (name: string) => (Redux.state.correctCards.includes(name as never) ? " correct" : "");
 
-    private getTurnBack = () => {
-        const styles = "card__back";
-        return this.state.turned? styles + " turn_back" : styles + "";
-    }
+  private getTurnBack = this.state.turned ? "card__back turn_back" : "card__back";
 
-    private turnHandle= (event: React.MouseEvent) => {
-        this.setState({turned: true});
-        event.stopPropagation();
-    }
+  private turnHandle = (event: React.MouseEvent) => {
+    this.setState({ turned: true });
+    event.stopPropagation();
+  };
 
-    private turnBackHandle= () => {
-        if (this.state.turned) this.setState({turned: false});
-    }
+  private turnBackHandle = () => {
+    if (this.state.turned) this.setState({ turned: false });
+  };
+
+  render() {
+    return this.getCardType();
+  }
 }
- 
+
 export default Card;
