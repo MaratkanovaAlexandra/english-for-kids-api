@@ -110,7 +110,7 @@ class Scope extends PureComponent<ScopeProps, ScopeState> {
 
     private cleanData = () => {
         cleanLocalStorage();
-        this.setState({sort: ""});
+        this.setState({sort: "reset"});
     }
 }
  
