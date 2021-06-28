@@ -13,7 +13,6 @@ class Header extends PureComponent<Readonly<HeaderProps>, HeaderState> {
   private getMode = () => (Redux.state.playMode ? "header__mode-play" : "header__mode-train")
 
   render() {
-    console.log(Redux.state.menuMode, this.getHamburger());
     return (
       <header className="header">
         <div
