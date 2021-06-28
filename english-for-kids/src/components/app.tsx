@@ -1,10 +1,10 @@
-import React, { MouseEvent, PureComponent } from 'react';
+import React, { MouseEvent, PureComponent } from "react";
 import * as Const from "../models/const" 
-import Header from './header';
-import SideBar from './side-bar';
-import CardsWrapper from './cards-wrapper';
-import Redux from './../models/redux';
-import Scope from './scope';
+import Header from "./header";
+import SideBar from "./side-bar";
+import CardsWrapper from "./cards-wrapper";
+import Redux from "./../models/redux";
+import Scope from "./scope";
 
 export interface AppProps {}
  
