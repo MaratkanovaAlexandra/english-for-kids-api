@@ -12,7 +12,7 @@
   &__item {
     display: flex;
     justify-content: space-around;
-    width: 1192px;
+    min-width: 1192px;
 
     font-size: 1.125rem;
     font-family: "Roboto";
@@ -36,7 +36,7 @@
 .tableTop {
   display: flex;
   align-items: center;
-  width: 1192px;
+  min-width: 1192px;
   height: 40px;
   background: $horGreenGradient;
 
