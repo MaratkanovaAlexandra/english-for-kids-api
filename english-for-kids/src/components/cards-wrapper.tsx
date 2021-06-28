@@ -1,8 +1,8 @@
-import React, { MouseEventHandler, PureComponent } from 'react';
-import Card from './card';
+import React, { MouseEventHandler, PureComponent } from "react";
+import Card from "./card";
 import * as Const from "../models/const";
-import Redux from './../models/redux';
-import playAudio from '../utils/audio';
+import Redux from "./../models/redux";
+import playAudio from "../utils/audio";
 
 export interface CardsWrapperProps {
     play: boolean,
