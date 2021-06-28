@@ -24,11 +24,12 @@ class App extends PureComponent<AppProps, AppState> {
                         functions = {{play: this.playModeHandler, menu: this.menuModeHandler}}
                         />
                     {this.getPage()}
-                </div>
+                
                 <footer className = {"footer"}>
                     <a className = {"git"} href = {"https://github.com/MaratkanovaAlexandra"}>{""}</a>
                     <a className = {"rss"} href = {"https://rs.school/js/"}>{""}</a>
                 </footer>
+                </div>
             </div>
             </React.Fragment>
         );
