@@ -1,5 +1,5 @@
-import React, { MouseEventHandler, PureComponent } from 'react';
-import Redux from './../models/redux';
+import React, { MouseEventHandler, PureComponent } from "react";
+import Redux from "./../models/redux";
 
 export interface CardProps {
     clickEvent: Function | boolean,
