@@ -1,8 +1,8 @@
-import CardEnum from '../models/card-enum';
+import CardEnum from "../models/card-enum";
 import * as Const from "./const";
-import playAudio from '../utils/audio';
+import playAudio from "../utils/audio";
 import * as Sound from "./sound-effects";
-import {findCard} from "../utils/card-searcher";
+import findCard from "../utils/card-searcher";
 
 let id = 1;
 const Redux = {
