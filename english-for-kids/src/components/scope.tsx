@@ -1,7 +1,7 @@
-import React, { MouseEventHandler, PureComponent } from 'react';
-import CardEnum from '../models/card-enum';
+import React, { MouseEventHandler, PureComponent } from "react";
+import CardEnum from "../models/card-enum";
 import * as Const from "../models/const";
-import { cleanLocalStorage } from '../utils/local-store';
+import { cleanLocalStorage } from "../utils/local-store";
 
 export interface ScopeProps {
     repeat: Function
@@ -47,8 +47,8 @@ class Scope extends PureComponent<ScopeProps, ScopeState> {
                 {CATEGORY.map(word => <div  key = {word.word} className = {"categories__item"}>
                                         <p  className = {"categories__word"}>{word.word}</p>
                                         <p  className = {"categories__word"}>{word.translation}</p>
-                                        <p  className = {"categories__word"}>{word['train clicks']}</p>
-                                        <p  className = {"categories__word"}>{word['correct answers']}</p>
+                                        <p  className = {"categories__word"}>{word["train clicks"]}</p>
+                                        <p  className = {"categories__word"}>{word["correct answers"]}</p>
                                         <p  className = {"categories__word"}>{word["wrong answers"]}</p>
                                         <p  className = {"categories__word"}>{word["correct answers percent"]}</p>
                                     </div>)}
@@ -87,7 +87,7 @@ class Scope extends PureComponent<ScopeProps, ScopeState> {
             const STATS = JSON.parse(localStorage[`${word.name}`]);
             const ITEM:{ [key: string]: string|number} = {word: word.name,
                           translation: word.transl as string,
-                          'train clicks': STATS.trainClick,
+                          "train clicks": STATS.trainClick,
                           "correct answers": STATS.correctClick,
                           "wrong answers": STATS.wrongClick,
                           "correct answers percent": this.getPercent(word.name)};
