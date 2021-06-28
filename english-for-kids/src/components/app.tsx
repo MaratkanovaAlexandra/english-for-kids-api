@@ -40,7 +40,7 @@ class App extends PureComponent<AppProps, AppState> {
   private handeleRepeat = () => {
     let resutl: { name: string; wrong: number }[] = [];
     Object.keys(localStorage).forEach((key) => {
-      if (typeof localStorage[key] !== "string") return;
+      if (typeof localStorage[key] !== "string" || !localStorage[key].includes("wrongClick")) return;
       const STATS = JSON.parse(localStorage[key]);
       if (STATS.wrongClick !== 0) {
         resutl.push({ name: key, wrong: STATS.wrongClick });
