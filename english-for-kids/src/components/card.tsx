@@ -28,11 +28,11 @@ class Card extends PureComponent<CardProps, CardState> {
 
   private getBaseCard = () => (
     <div className={`card ${this.getCorrect(this.props.name)}`} onMouseLeave={this.turnBackHandle}>
-      <div role="figure" className={this.getTurnTop} onClick={() => this.props.cardClick(this.props.name, this.props.audio)}>
+      <div role="figure" className={this.getTurnTop()} onClick={() => this.props.cardClick(this.props.name, this.props.audio)}>
         <img className="card__img" src={this.props.img} alt={this.props.name} />
         {this.getGameCard()}
       </div>
-      <div className={this.getTurnBack}>
+      <div className={this.getTurnBack()}>
         <img className="card__img" src={this.props.img} alt={this.props.name} />
         <p className="card__eng">{this.props.transl}</p>
       </div>
@@ -62,11 +62,11 @@ class Card extends PureComponent<CardProps, CardState> {
     </div>
   );
 
-  private getTurnTop = this.state.turned ? "card__top turn_top" : "card__top";
+  private getTurnTop = () => (this.state.turned ? "card__top turn_top" : "card__top")
 
   private getCorrect = (name: string) => (Redux.state.correctCards.includes(name as never) ? " correct" : "");
 
-  private getTurnBack = this.state.turned ? "card__back turn_back" : "card__back";
+  private getTurnBack = () => (this.state.turned ? "card__back turn_back" : "card__back")
 
   private turnHandle = (event: React.MouseEvent) => {
     this.setState({ turned: true });
