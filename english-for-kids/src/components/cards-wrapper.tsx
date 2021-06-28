@@ -48,7 +48,10 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
 
   private cardClick = (name: string, audio: string) => {
     if (Redux.state.playMode) {
-      this.setState(Redux.setState("changeCard", name));
+      if (Redux.state.game) {
+        this.setState(Redux.setState("changeCard", name));
+        return;
+      }
       return;
     }
     playAudio(audio);
