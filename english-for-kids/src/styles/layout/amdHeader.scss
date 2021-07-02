@@ -1,0 +1,41 @@
+.admHeader {
+  &__back {
+    background-color: $green;
+  }
+
+  &__items {
+    height: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__button {
+    flex: 1.05 0 0;
+    height: 61px;
+
+    @include baseText;
+    text-transform: capitalize;
+    color: #fff;
+    border: none;
+    background-color: transparent;
+  }
+
+  &__logout {
+    width: 213px;
+    height: 100%;
+    flex: 4 0 0;
+    box-sizing: border-box;
+    padding: 36px 40px;
+
+    @include baseText;
+    text-transform: capitalize;
+    text-align: right;
+    color: #fff;
+    border: none;
+    background-color: transparent;
+  }
+}
