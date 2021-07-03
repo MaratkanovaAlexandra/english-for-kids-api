@@ -40,6 +40,15 @@ APP.post('/:page', (req, res) => {
   res.sendStatus(200);
 });
 
+APP.put('/:page/:id', (req, res) => {
+  const ID = /^\d+$/.test(req.params.id) ? Number(req.params.id) :  req.params.id;
+  let ITEM = (DATA_BASE[req.params.page] as {id: number|string}[]).filter(item => item.id === ID)[0];
+  Object.keys(ITEM).forEach(key => {
+    ITEM[key] = req.body[key];
+  });
+  res.sendStatus(200);
+});
+
 APP.listen(PORT, () => {
   console.log(`Server is running at http://localhost:`, PORT)
 })
