@@ -2,7 +2,7 @@ import express from "express";
 import DATA_BASE from "./db";
 
 const APP = express();
-const PORT = 3000;
+const PORT = 8080;
 APP.use(express.json());
 APP.set("Content-Type", "application/json");
 
