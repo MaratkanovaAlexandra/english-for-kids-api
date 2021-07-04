@@ -1,1 +1,1 @@
-export const MAIN_SERVER = "http://localhost:3000";
+export const MAIN_SERVER = "http://localhost:8080";
