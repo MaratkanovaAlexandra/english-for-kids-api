@@ -7,6 +7,13 @@
         "airbnb-base"
     ],
     "parser": "@typescript-eslint/parser",
+    "settings": {
+        "import/resolver": {
+          "node": {
+            "extensions": [".js", ".jsx", ".ts", ".tsx"]
+          }
+        }
+      },
     "parserOptions": {
         "ecmaVersion": 12,
         "sourceType": "module"
@@ -16,6 +23,8 @@
     ],
     "rules": {
         "semi": ["error", "always"],
-        "quotes": ["error", "double"]
+        "quotes": ["error", "double"],
+        "import/extensions": [0],
+        "no-console": [0]
     }
 }
