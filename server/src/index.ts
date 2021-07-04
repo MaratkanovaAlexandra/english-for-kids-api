@@ -54,7 +54,24 @@ APP.put('/:page/:id', (req, res) => {
 });
 
 APP.delete('/:page/:id', (req, res) => {
-
+  const ID = /^\d+$/.test(req.params.id) ? Number(req.params.id) :  req.params.id;
+  let word_id: number = null;
+  for (let item = 0; item < DATA_BASE[req.params.page].length; item++) { 
+    if(DATA_BASE[req.params.page][item].id === ID) {
+      word_id = item;
+    }
+  }
+  if(req.params.page === "pages") {
+    let main_page: number = null;
+    for (let item = 0; item < DATA_BASE.main_page.length; item++) { 
+      if(DATA_BASE.main_page[item].name === DATA_BASE.pages[item].page) {
+        main_page = item;
+      }
+    }
+    DATA_BASE.main_page.splice(main_page, 1);
+  }
+  DATA_BASE[req.params.page].splice(word_id, 1);
+  res.sendStatus(200);
 });
 
 APP.listen(PORT, () => {
