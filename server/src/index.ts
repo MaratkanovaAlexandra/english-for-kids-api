@@ -4,20 +4,20 @@ import DATA_BASE from './db';
 const APP = express();
 const PORT = 3000;
 APP.use(express.json());
+APP.set('Content-Type', "application/json");
 
 APP.get('/:page/:id?', (req, res) => {
-  res.set('Content-Type', "application/json");
   const RESULT = DATA_BASE[req.params.page];
   if (JSON.stringify(req.query) === "{}" && req.params.id === undefined) {
     res.send(RESULT);
-  }
-  if (req.params.id !== undefined) {
+  } else if (req.params.id !== undefined) {
     const ID = /^\d+$/.test(req.params.id) ? Number(req.params.id) :  req.params.id;
     const ITEM = (RESULT as {id: number|string}[]).filter(item => item.id === ID)[0];
     res.send(ITEM);
+  } else {
+    const ITEM = (RESULT as {page: string}[]).filter(item => item.page === req.query.page)[0];
+    res.send(ITEM);
   }
-  const ITEM = (RESULT as {page: string}[]).filter(item => item.page === req.query.page)[0];
-  res.send(ITEM);
 });
 
 APP.post('/:page', (req, res) => {
@@ -42,11 +42,19 @@ APP.post('/:page', (req, res) => {
 
 APP.put('/:page/:id', (req, res) => {
   const ID = /^\d+$/.test(req.params.id) ? Number(req.params.id) :  req.params.id;
-  let ITEM = (DATA_BASE[req.params.page] as {id: number|string}[]).filter(item => item.id === ID)[0];
+  let ITEM = (DATA_BASE[req.params.page] as {id: number|string, page: string}[]).filter(item => item.id === ID)[0];
+  if (req.params.page === "pages") {
+    const MAIN_PAGE_ITEM =  (DATA_BASE.main_page as {name: string}[]).filter(item => item.name ===  ITEM.page)[0];
+    MAIN_PAGE_ITEM.name = req.body.page;
+  }
   Object.keys(ITEM).forEach(key => {
     ITEM[key] = req.body[key];
   });
   res.sendStatus(200);
+});
+
+APP.delete('/:page/:id', (req, res) => {
+
 });
 
 APP.listen(PORT, () => {
