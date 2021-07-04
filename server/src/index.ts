@@ -1,12 +1,17 @@
 import express from "express";
+import cors from "cors";
 import DATA_BASE from "./db";
 
 const APP = express();
 const PORT = 8080;
 APP.use(express.json());
-APP.set("Content-Type", "application/json");
+
+APP.use(cors({
+  origin: "http://localhost:3000"
+}));
 
 APP.get("/:page/:id?", (req, res) => {
+  res.set("Content-Type", "application/json");
   const RESULT = DATA_BASE[req.params.page];
   if (JSON.stringify(req.query) === "{}" && req.params.id === undefined) {
     res.send(RESULT);
