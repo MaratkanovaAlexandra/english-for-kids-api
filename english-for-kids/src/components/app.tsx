@@ -1,5 +1,5 @@
 import React, { MouseEvent, Component} from "react";
-import {Switch, Route, RouteComponentProps } from "react-router-dom";
+import {Switch, Route, RouteComponentProps, Redirect } from "react-router-dom";
 import { getPageByName } from "../utils/fetch-funstions";
 
 import Header from "./header";
@@ -55,7 +55,7 @@ class App extends Component<AppProps, AppState> {
       return 0;
     });
     resutl = resutl.splice(0, 8);
-    this.props.history.push("/repear");
+    this.props.history.push("/repeat");
     this.setState(Redux.setState("repeatWords", resutl));
   };
 
@@ -72,9 +72,12 @@ class App extends Component<AppProps, AppState> {
                 menu: this.menuModeHandler,
               }}
             />
-            <Switch>
+            <Redirect from="/" to="/main_page" />
+            <Switch> 
               <Route path="/scope" exact component={() => <Scope repeat={this.handeleRepeat}/>}/> 
-              <Route path="/:page" component={() => <CardsWrapper clickEvent={this.pageChangeHandler}/>} />
+              <Route 
+                path="/:page" 
+                component={() => <CardsWrapper clickEvent={this.pageChangeHandler} location={this.props.location.pathname}/>} />
             </Switch>
 
             <footer className="footer">
