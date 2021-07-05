@@ -1,4 +1,4 @@
-interface Card {
+interface PlayCard {
     id: number;
     name: string;
     transl: string|null;
@@ -6,4 +6,4 @@ interface Card {
     sound: string|null;
 }
 
-export default Card;
+export default PlayCard;
