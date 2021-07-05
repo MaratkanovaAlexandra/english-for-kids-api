@@ -1,5 +1,5 @@
 function playAudio(src: string): void {
-  const audio = new Audio(`data:audio/wav;base64,${src}`);
+  const audio = new Audio(`${src}`);
   audio.currentTime = 0;
   audio.play();
 }
