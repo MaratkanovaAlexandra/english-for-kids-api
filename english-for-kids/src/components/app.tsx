@@ -1,16 +1,20 @@
-import React, { MouseEvent, PureComponent } from "react";
-import * as Const from "../models/const";
+import React, { MouseEvent, Component} from "react";
+import {Switch, Route, RouteComponentProps } from "react-router-dom";
+import { getPageByName } from "../utils/fetch-funstions";
+
 import Header from "./header";
 import SideBar from "./side-bar";
 import CardsWrapper from "./cards-wrapper";
 import Redux from "../models/redux";
 import Scope from "./scope";
+// import PopUp from "./pop-up";
+// import AdmHeader from "./admin/admin-header";
 
-export interface AppProps {}
+export interface AppProps extends RouteComponentProps{}
 
 export interface AppState {}
 
-class App extends PureComponent<AppProps, AppState> {
+class App extends Component<AppProps, AppState> {
   private menuModeHandler = () => {
     this.setState(Redux.setState("changeMenuMode"));
   };
@@ -19,21 +23,16 @@ class App extends PureComponent<AppProps, AppState> {
     this.setState(Redux.setState("changePlayMode"));
   };
 
-  private getPage = () => {
-    if (Redux.state.page === Const.SCOPE) return <Scope repeat={this.handeleRepeat} />;
-    return (
-      <CardsWrapper
-        play={Redux.state.playMode}
-        page={Redux.state.page}
-        clickEvent={this.pageChangeHandler}
-      />
-    );
-  };
-
-  private pageChangeHandler = (event: MouseEvent) => {
+  private pageChangeHandler = async(event: MouseEvent) => {
     const target = event.target as HTMLElement;
     const page = target.innerText === "" ? target.parentElement?.lastElementChild?.innerHTML : target.innerText;
     if (page === Redux.state.page) return;
+    if(page === "Hacker scope") {
+      this.props.history.push("/scope");
+    } else {
+      const { id } = await getPageByName(page as string);
+      this.props.history.push(`/${id}`);
+    }
     this.setState(Redux.setState("changePage", page));
   };
 
@@ -56,12 +55,14 @@ class App extends PureComponent<AppProps, AppState> {
       return 0;
     });
     resutl = resutl.splice(0, 8);
+    this.props.history.push("/repear");
     this.setState(Redux.setState("repeatWords", resutl));
   };
 
   render() {
     return (
       <>
+      {/* <AdmHeader /> */}
         <div className="wrapper">
           <SideBar funstions={[this.pageChangeHandler, this.menuModeHandler]} />
           <div className="mainApp">
@@ -71,7 +72,10 @@ class App extends PureComponent<AppProps, AppState> {
                 menu: this.menuModeHandler,
               }}
             />
-            {this.getPage()}
+            <Switch>
+              <Route path="/scope" exact component={() => <Scope repeat={this.handeleRepeat}/>}/> 
+              <Route path="/:page" component={() => <CardsWrapper clickEvent={this.pageChangeHandler}/>} />
+            </Switch>
 
             <footer className="footer">
               <a className="git" href="https://github.com/MaratkanovaAlexandra">/</a>
@@ -79,6 +83,7 @@ class App extends PureComponent<AppProps, AppState> {
             </footer>
           </div>
         </div>
+        {/* <PopUp /> */}
       </>
     );
   }
