@@ -6,9 +6,9 @@ const DATA_BASE = {
 
   pages: [
     { page: "Main Page", id: "main_page" },
-    { page: "Action (Set A)", id: "action_a" },
-    { page: "Action (Set B)", id: "action_b" },
-    { page: "Action (Set C)", id: "action_c" },
+    { page: "Action (set A)", id: "action_a" },
+    { page: "Action (set B)", id: "action_b" },
+    { page: "Action (set C)", id: "action_c" },
     { page: "Adjective", id: "adjective" },
     { page: "Animal (set A)", id: "animal_a" },
     { page: "Animal (set B)", id: "animal_b" },
