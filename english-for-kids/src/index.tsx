@@ -4,11 +4,14 @@ import "./styles/main.scss";
 import App from "./components/app";
 import { createLocalStorage } from "./utils/local-store";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router, Route} from "react-router-dom";
 
 createLocalStorage();
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Route path="/" component={App} />
+    </Router>
   </React.StrictMode>,
   document.getElementById("root"),
 );
