@@ -1,19 +1,31 @@
 import React, { MouseEventHandler, PureComponent } from "react";
+
+import PlayCard from "../types/card";
 import Card from "./card";
 import * as Const from "../models/const";
 import Redux from "../models/redux";
 import playAudio from "../utils/audio";
+import { getCards } from "../utils/fetch-funstions";
 
 export interface CardsWrapperProps {
-    play: boolean,
-    page: string,
-    clickEvent: Function,
+  location: string,
+  clickEvent: Function,
 }
 
-export interface CardsWrapperState {
-}
+export interface CardsWrapperState {}
 
 class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
+  state = {
+    cards: [] as PlayCard[],
+    _isMounted: false
+  }
+ 
+  componentDidMount = async() => {
+    this.setState({_isMounted: true});
+    const RES = await getCards(this.props.location);
+    this.setState({cards: RES});
+  }
+
   private getPlayButton = () => {
     if (!Redux.state.playMode) return null;
     if (Redux.state.game) {
@@ -64,7 +76,7 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
     return (
       <>
         <div className="cardWrapper">
-          {Redux.state.cards.map((card) => (
+          {this.state.cards.map((card) => (
             <Card
               key={card.name}
               play={Redux.state.playMode}
