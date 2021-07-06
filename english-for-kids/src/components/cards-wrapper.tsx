@@ -6,7 +6,7 @@ import * as Const from "../models/const";
 import Redux from "../models/redux";
 import playAudio from "../utils/audio";
 import { getCards } from "../utils/fetch-funstions";
-import findRepeatCards from "../utils/card-searcher";
+import { findRepeatCards } from "../utils/card-searcher";
 
 export interface CardsWrapperProps {
   location: string,

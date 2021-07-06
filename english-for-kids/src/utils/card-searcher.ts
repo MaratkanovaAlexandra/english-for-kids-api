@@ -1,5 +1,5 @@
 import PlayCard from "../types/card";
-import { getAllCards } from "../utils/fetch-funstions";
+import { getAllCards, getPages, getCards} from "../utils/fetch-funstions";
 
 async function findCard(name: string) {
   const CARDS = await getAllCards();
@@ -10,7 +10,7 @@ async function findCard(name: string) {
   }
 }
 
-async function findRepeatCards() {
+export async function findRepeatCards() {
   let resutl: { name: string; wrong: number }[] = [];
     Object.keys(localStorage).forEach((key) => {
       if (typeof localStorage[key] !== "string" || !localStorage[key].includes("wrongClick")) return;
@@ -36,4 +36,11 @@ async function findRepeatCards() {
     return CARDS;
 }
 
-export default findRepeatCards;
+export async function fetchCategories() {
+  const RESULT: { [key: string]: PlayCard[]} = {};
+  const PAGES = await getPages();
+  for (let page = 0; page < PAGES.length; page++) {
+    RESULT[PAGES[page].page] = await getCards(`/${PAGES[page].id}`)
+  }
+  return RESULT;
+}
