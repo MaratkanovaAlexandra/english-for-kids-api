@@ -41,9 +41,16 @@ class App extends Component<AppProps, AppState> {
     this.setState(Redux.setState("repeatWords"));
   };
 
+  private closeSibeBar = (event:React.MouseEvent) => {
+    const TARGET = event.target as HTMLElement;
+    if (!TARGET.classList.contains("sideBar") && !TARGET.classList.contains("header__hamburger-closed")) {
+      this.setState(Redux.setState("changeMenuMode"));
+    }
+  }
+
   render() {
     return (
-      <>
+      <div onClick={this.closeSibeBar}>
           <SideBar funstions={[this.pageChangeHandler, this.menuModeHandler]} />
             <Header
               functions={{
@@ -64,7 +71,7 @@ class App extends Component<AppProps, AppState> {
             </footer>
        
         {/* <PopUp /> */}
-      </>
+      </div>
     );
   }
 }

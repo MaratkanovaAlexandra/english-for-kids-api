@@ -36,6 +36,7 @@ const Redux = {
         break;
       case "changePage":
         this.state.page = input as string;
+        this.state.menuMode = false;
         this.resetPage();
         break;
       case "changeGameMode":
