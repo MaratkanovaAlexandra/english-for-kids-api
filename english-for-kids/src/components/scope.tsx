@@ -1,20 +1,32 @@
 import React, { MouseEventHandler, PureComponent } from "react";
-import CardEnum from "../models/card-enum";
+import PlayCard from "../types/card";
+
 import * as Const from "../models/const";
 import { cleanLocalStorage } from "../utils/local-store";
+import { fetchCategories } from "../utils/card-searcher";
 
 export interface ScopeProps {
   repeat: Function;
 }
 
 export interface ScopeState {
-    sort: string
+    sort: string,
+    categories: { [key: string]: PlayCard[]},
+    _isMounted: boolean
 }
 
 class Scope extends PureComponent<ScopeProps, ScopeState> {
   state = {
     sort: "",
+    categories: {} as { [key: string]: PlayCard[]},
+    _isMounted: false
   };
+
+  componentDidMount = async() => {
+    this.setState({_isMounted: true});
+    const RES = await fetchCategories();
+    this.setState({categories: RES});
+  }
 
   private cleanData = () => {
     cleanLocalStorage();
@@ -22,6 +34,7 @@ class Scope extends PureComponent<ScopeProps, ScopeState> {
   };
 
   private getCategories = (name: string) => {
+    if (name === "Main Page") return;
     const CATEGORY = this.getCategory(name);
     if (this.state.sort !== "") this.sortArray(CATEGORY);
     return (
@@ -70,8 +83,8 @@ class Scope extends PureComponent<ScopeProps, ScopeState> {
     this.setState({ sort: TEXT });
   };
 
-  private getCategory = (name: string) => {
-    const WORDS = CardEnum[name];
+  private getCategory = (element: string) => {
+    const WORDS = this.state.categories[element];
     const RESULT: { [key: string]: string | number }[] = [];
 
     WORDS.forEach((word) => {
@@ -112,7 +125,7 @@ class Scope extends PureComponent<ScopeProps, ScopeState> {
             {Const.RESET}
           </button>
         </div>
-        {CardEnum[Const.MAIN_PAGE].map((element) => this.getCategories(element.name))}
+        {Object.keys(this.state.categories).map((element) => this.getCategories(element))}
       </>
     );
   }
