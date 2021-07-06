@@ -10,10 +10,14 @@ import { findRepeatCards } from "../utils/card-searcher";
 
 export interface CardsWrapperProps {
   location: string,
-  clickEvent: Function,
+  clickEvent: Function
 }
 
 export interface CardsWrapperState {}
+
+// Вoобщем я тут придумала какой-то странный костыль :( не суди строго
+let path = "";
+let saveCards: PlayCard[] = [];
 
 class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
   state = {
@@ -22,14 +26,21 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
   }
 
   componentDidMount = async() => {
+    if (this.props.location === path) {
+      this.setState({cards: saveCards});
+      return;
+    }
     if (this.props.location === "/repeat") {
       const RES = await findRepeatCards();
       this.setState({cards: RES});
+      path = this.props.location;
+      saveCards = RES;
       return;
     }
-    this.setState({_isMounted: true});
     const RES = await getCards(this.props.location);
     this.setState({cards: RES});
+    path = this.props.location;
+    saveCards = RES;
   }
 
   private getPlayButton = () => {

@@ -15,6 +15,10 @@ export interface ScopeState {
     _isMounted: boolean
 }
 
+let notLoaded = true;
+let saveCategories = {} as { [key: string]: PlayCard[]}
+let reseted = false;
+
 class Scope extends PureComponent<ScopeProps, ScopeState> {
   state = {
     sort: "",
@@ -23,14 +27,24 @@ class Scope extends PureComponent<ScopeProps, ScopeState> {
   };
 
   componentDidMount = async() => {
+    if (!notLoaded && !reseted){
+      console.log("op")
+      this.setState({categories: saveCategories});
+      return;
+    }
     this.setState({_isMounted: true});
     const RES = await fetchCategories();
     this.setState({categories: RES});
+    notLoaded = false;
+    reseted = false;
+    saveCategories = RES;
   }
 
   private cleanData = () => {
-    cleanLocalStorage();
+    reseted = true;
     this.setState({ sort: "reset" });
+    cleanLocalStorage();
+    this.componentDidMount();
   };
 
   private getCategories = (name: string) => {
