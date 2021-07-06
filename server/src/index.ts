@@ -10,18 +10,27 @@ APP.use(cors({
   origin: ["http://localhost:3000", "https://rolling-scopes-school.github.io/maratkanovaalexandra-JSFE2021Q1/english-for-kids/ "]
 }));
 
-APP.get("/:page/:id?", (req, res) => {
+APP.get("/:page?/:id?", (req, res) => {
   res.set("Content-Type", "application/json");
-  const RESULT = DATA_BASE[req.params.page];
-  if (JSON.stringify(req.query) === "{}" && req.params.id === undefined) {
+  if (req.params.page === undefined) {
+    let RESULT = [];
+    Object.keys(DATA_BASE).forEach((key) => {
+      if (key === "pages" || key === "main_page" || key === "admin") return;
+      RESULT = RESULT.concat(DATA_BASE[key]);
+    });
     res.send(RESULT);
-  } else if (req.params.id !== undefined) {
-    const ID = /^\d+$/.test(req.params.id) ? Number(req.params.id) : req.params.id;
-    const ITEM = (RESULT as {id: number|string}[]).filter((item) => item.id === ID)[0];
-    res.send(ITEM);
   } else {
-    const ITEM = (RESULT as {page: string}[]).filter((item) => item.page === req.query.page)[0];
-    res.send(ITEM);
+    const RESULT = DATA_BASE[req.params.page];
+    if (JSON.stringify(req.query) === "{}" && req.params.id === undefined) {
+      res.send(RESULT);
+    } else if (req.params.id !== undefined) {
+      const ID = /^\d+$/.test(req.params.id) ? Number(req.params.id) : req.params.id;
+      const ITEM = (RESULT as {id: number|string}[]).filter((item) => item.id === ID)[0];
+      res.send(ITEM);
+    } else {
+      const ITEM = (RESULT as {page: string}[]).filter((item) => item.page === req.query.page)[0];
+      res.send(ITEM);
+    }
   }
 });
 
