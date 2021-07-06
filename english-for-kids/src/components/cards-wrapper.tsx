@@ -6,6 +6,7 @@ import * as Const from "../models/const";
 import Redux from "../models/redux";
 import playAudio from "../utils/audio";
 import { getCards } from "../utils/fetch-funstions";
+import findRepeatCards from "../utils/card-searcher";
 
 export interface CardsWrapperProps {
   location: string,
@@ -19,8 +20,13 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
     cards: [] as PlayCard[],
     _isMounted: false
   }
- 
+
   componentDidMount = async() => {
+    if (this.props.location === "/repeat") {
+      const RES = await findRepeatCards();
+      this.setState({cards: RES});
+      return;
+    }
     this.setState({_isMounted: true});
     const RES = await getCards(this.props.location);
     this.setState({cards: RES});
@@ -52,7 +58,7 @@ class CardsWrapper extends PureComponent<CardsWrapperProps, CardsWrapperState> {
   private playButtonClick = () => {
     if (Redux.state.page === Const.MAIN_PAGE) return;
     if (!Redux.state.game) {
-      this.setState(Redux.setState("changeGameMode"));
+      this.setState(Redux.setState("changeGameMode", this.state.cards));
       return;
     }
     playAudio(Redux.state.cardPlaing.sound);
