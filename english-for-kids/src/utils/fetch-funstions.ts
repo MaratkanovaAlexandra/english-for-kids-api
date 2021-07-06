@@ -22,3 +22,10 @@ export const getCards = async (category:string):Promise<PlayCard[]> => {
 
   return res;
 }
+
+export const getAllCards = async():Promise<PlayCard[]> => {
+  const req = await fetch(`${MAIN_SERVER}`);
+  const res = await req.json();
+
+  return res;
+}
