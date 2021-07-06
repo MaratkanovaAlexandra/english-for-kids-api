@@ -37,26 +37,8 @@ class App extends Component<AppProps, AppState> {
   };
 
   private handeleRepeat = () => {
-    let resutl: { name: string; wrong: number }[] = [];
-    Object.keys(localStorage).forEach((key) => {
-      if (typeof localStorage[key] !== "string" || !localStorage[key].includes("wrongClick")) return;
-      const STATS = JSON.parse(localStorage[key]);
-      if (STATS.wrongClick !== 0) {
-        resutl.push({ name: key, wrong: STATS.wrongClick });
-      }
-    });
-    resutl.sort((a, b) => {
-      if (a.wrong > b.wrong) {
-        return -1;
-      }
-      if (a.wrong < b.wrong) {
-        return 1;
-      }
-      return 0;
-    });
-    resutl = resutl.splice(0, 8);
     this.props.history.push("/repeat");
-    this.setState(Redux.setState("repeatWords", resutl));
+    this.setState(Redux.setState("repeatWords"));
   };
 
   render() {
