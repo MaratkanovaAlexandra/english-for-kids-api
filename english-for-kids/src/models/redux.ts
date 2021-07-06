@@ -1,4 +1,5 @@
 import CardEnum from "../models/card-enum";
+import PlayCard from "../types/card";
 import * as Const from "./const";
 import playAudio from "../utils/audio";
 import * as Sound from "./sound-effects";
@@ -11,12 +12,12 @@ const Redux = {
     menuMode: false,
     game: false,
     page: Const.MAIN_PAGE,
-    cards: CardEnum[Const.MAIN_PAGE],
     PlayCards: [],
     cardPlaing: { name: "", img: "", transl: "", sound: "" },
     correctCards: [],
     answers: [],
     complImage: "",
+    repeat: [] as { name: string; wrong: number }[]
   },
 
   getState() {
@@ -25,7 +26,7 @@ const Redux = {
 
   setState(
     type: string,
-    input?: string | { name: string; wrong: number }[],
+    input?: string | { name: string; wrong: number }[] | PlayCard[],
   ) {
     switch (type) {
       case "changePlayMode":
@@ -36,13 +37,12 @@ const Redux = {
         this.state.menuMode = !this.state.menuMode;
         break;
       case "changePage":
-        this.state.cards = CardEnum[input as string];
         this.state.page = input as string;
         this.resetPage();
         break;
       case "changeGameMode":
         this.state.game = !this.state.game;
-        this.state.PlayCards = [...this.state.cards] as never;
+        this.state.PlayCards = [...(input as PlayCard[])] as never;
         this.getNewCardPlaing();
         break;
       case "changeCard":
@@ -76,7 +76,6 @@ const Redux = {
     this.state.menuMode = false;
     this.state.game = false;
     this.state.page = Const.MAIN_PAGE;
-    this.state.cards = CardEnum[Const.MAIN_PAGE];
     this.state.PlayCards = [];
     this.state.cardPlaing = { name: "", img: "", transl: "", sound: "" };
     this.state.correctCards = [];
@@ -142,14 +141,7 @@ const Redux = {
   },
 
   repeatWorrds(input: { name: string; wrong: number }[]) {
-    const CARDS:
-      | { name: string; transl: string; img: string; sound: string }[]
-      | { name: string; transl: null; img: string; sound: null }[] = [];
-    input.forEach((card) => {
-      CARDS.push(findCard(card.name) as never);
-    });
     this.state.page = "repeat";
-    this.state.cards = CARDS;
     this.resetPage();
   },
 };
