@@ -8,7 +8,7 @@ import CardsWrapper from "./cards-wrapper";
 import Redux from "../models/redux";
 import Scope from "./scope";
 // import PopUp from "./pop-up";
-// import AdmHeader from "./admin/admin-header";
+
 
 export interface AppProps extends RouteComponentProps{}
 
@@ -44,10 +44,7 @@ class App extends Component<AppProps, AppState> {
   render() {
     return (
       <>
-      {/* <AdmHeader /> */}
-        <div className="wrapper">
           <SideBar funstions={[this.pageChangeHandler, this.menuModeHandler]} />
-          <div className="mainApp">
             <Header
               functions={{
                 play: this.playModeHandler,
@@ -61,13 +58,11 @@ class App extends Component<AppProps, AppState> {
                 path="/:page" 
                 component={() => <CardsWrapper clickEvent={this.pageChangeHandler} location={this.props.location.pathname}/>} />
             </Switch>
-
             <footer className="footer">
               <a className="git" href="https://github.com/MaratkanovaAlexandra">/</a>
               <a className="rss" href="https://rs.school/js/">/</a>
             </footer>
-          </div>
-        </div>
+       
         {/* <PopUp /> */}
       </>
     );
