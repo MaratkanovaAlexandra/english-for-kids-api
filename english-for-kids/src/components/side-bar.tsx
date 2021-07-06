@@ -1,16 +1,30 @@
 import React, { MouseEventHandler, PureComponent } from "react";
-// import { getPageByName } from "../utils/fetch-funstions";
-// import { Link } from "react-router-dom";
 import * as Const from "../models/const";
 import Redux from "../models/redux";
+import Page from "../types/page";
+import { getPages } from "../utils/fetch-funstions";
 
 export interface SideBarProps {
   funstions: Function[];
 }
 
-export interface SideBarState {}
+export interface SideBarState {
+  pages: Page[],
+  _isMounted: boolean
+}
 
 class SideBar extends PureComponent<SideBarProps, SideBarState> {
+  state = {
+    pages: [] as Page[],
+    _isMounted: false
+  }
+
+  componentDidMount = async() => {
+    this.setState({_isMounted: true});
+    const RES = await getPages();
+    this.setState({pages: RES});
+  }
+
   private cross = (
     <div
       role="figure"
@@ -33,15 +47,7 @@ class SideBar extends PureComponent<SideBarProps, SideBarState> {
           className="sideBar__items"
           onClick={funstions[0] as MouseEventHandler}
         >
-          <li className={this.getItemStyle(Const.MAIN_PAGE)}>{Const.MAIN_PAGE}</li>
-          <li className={this.getItemStyle(Const.ACTION_A)}>{Const.ACTION_A}</li>
-          <li className={this.getItemStyle(Const.ACTION_B)}>{Const.ACTION_B}</li>
-          <li className={this.getItemStyle(Const.ACTION_C)}>{Const.ACTION_C}</li>
-          <li className={this.getItemStyle(Const.ADJECTIVE)}>{Const.ADJECTIVE}</li>
-          <li className={this.getItemStyle(Const.ANIMAL_A)}>{Const.ANIMAL_A}</li>
-          <li className={this.getItemStyle(Const.ANIMAL_B)}>{Const.ANIMAL_B}</li>
-          <li className={this.getItemStyle(Const.CLOTHES)}>{Const.CLOTHES}</li>
-          <li className={this.getItemStyle(Const.EMOTION)}>{Const.EMOTION}</li>
+          {this.state.pages.map((page) => <li key={page.id} className={this.getItemStyle(page.page)}>{page.page}</li>) }
           <li className={this.getItemStyle(Const.SCOPE)}>{Const.SCOPE}</li>
         </ul>
         <button type="button" className="login_button">{Const.LOGIN}</button>
