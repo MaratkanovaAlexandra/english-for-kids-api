@@ -1,26 +1,17 @@
-import CardEnum from "../models/card-enum";
-import * as Const from "../models/const";
+import { getAllCards } from "../utils/fetch-funstions";
 
-export function createLocalStorage() {
-  Object.keys(CardEnum).forEach((key) => {
-    if (key !== Const.MAIN_PAGE) {
-      CardEnum[key].forEach((card) => {
-        if (localStorage[`${card.name}`] === undefined) {
-          localStorage
-            .setItem(card.name, JSON.stringify({ trainClick: 0, correctClick: 0, wrongClick: 0 }));
-        }
-      });
+export async function createLocalStorage() {
+  const CARDS = await getAllCards();
+  CARDS.forEach((card) => {
+    if (localStorage[`${card.name}`] === undefined) {
+      localStorage.setItem(card.name, JSON.stringify({ trainClick: 0, correctClick: 0, wrongClick: 0 }));
     }
   });
 }
 
-export function cleanLocalStorage() {
-  Object.keys(CardEnum).forEach((key) => {
-    if (key !== Const.MAIN_PAGE) {
-      CardEnum[key].forEach((card) => {
-        localStorage.setItem(card.name,
-          JSON.stringify({ trainClick: 0, correctClick: 0, wrongClick: 0 }));
-      });
-    }
+export async function cleanLocalStorage() {
+  const CARDS = await getAllCards();
+  CARDS.forEach((card) => {
+    localStorage.setItem(card.name, JSON.stringify({ trainClick: 0, correctClick: 0, wrongClick: 0 }));
   });
 }
