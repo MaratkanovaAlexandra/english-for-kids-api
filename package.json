@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "start": "node --experimental-modules --es-module-specifier-resolution=node index.js",
     "lint": "eslint ./src/*.ts"
   },
   "author": "",
