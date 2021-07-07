@@ -3,7 +3,7 @@ import cors from "cors";
 import DATA_BASE from "./db";
 
 const APP = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 APP.use(express.json());
 
 APP.use(cors({
