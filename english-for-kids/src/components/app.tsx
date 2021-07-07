@@ -43,7 +43,9 @@ class App extends Component<AppProps, AppState> {
 
   private closeSibeBar = (event:React.MouseEvent) => {
     const TARGET = event.target as HTMLElement;
-    if (!TARGET.classList.contains("sideBar") && !TARGET.classList.contains("header__hamburger-closed")) {
+    if (Redux.state.menuMode && !TARGET.classList.contains("sideBar") && !TARGET.classList.contains("header__hamburger-closed")
+      && !TARGET.classList.contains("sideBar__cross")) {
+      console.log(TARGET);
       this.setState(Redux.setState("changeMenuMode"));
     }
   }
