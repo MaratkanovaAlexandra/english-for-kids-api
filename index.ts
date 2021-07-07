@@ -7,7 +7,7 @@ const PORT = 8080;
 APP.use(express.json());
 
 APP.use(cors({
-  origin: ["http://localhost:3000", "https://rolling-scopes-school.github.io"]
+  origin: "https://rolling-scopes-school.github.io"
 }));
 
 APP.get("/:page?/:id?", (req, res) => {
