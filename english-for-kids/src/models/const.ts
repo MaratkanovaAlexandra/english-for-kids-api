@@ -18,3 +18,12 @@ export const START = "start";
 // Scope
 export const REPEAT = "repeat";
 export const RESET = "reset";
+
+// Pop-up
+export const PASSWORD = "password";
+export const CANSEL = "cansel";
+
+// Admin
+export const CATEGOR = "categories";
+export const WORDS = "words";
+export const LODOUT = "log out";
