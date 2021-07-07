@@ -1,17 +1,14 @@
 import express from "express";
-import cors from "cors";
 import DATA_BASE from "./db";
 
 const APP = express();
 const PORT = 8080;
 APP.use(express.json());
 
-APP.use(cors({
-  origin: ["http://localhost:3000", "https://rolling-scopes-school.github.io/maratkanovaalexandra-JSFE2021Q1/english-for-kids/ "]
-}));
-
 APP.get("/:page?/:id?", (req, res) => {
   res.set("Content-Type", "application/json");
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Headers', 'origin, content-type, accept');
   if (req.params.page === undefined) {
     let RESULT = [];
     Object.keys(DATA_BASE).forEach((key) => {
@@ -35,6 +32,10 @@ APP.get("/:page?/:id?", (req, res) => {
 });
 
 APP.post("/:page", (req, res) => {
+  res.set("Content-Type", "application/json");
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Headers', 'origin, content-type, accept');
+
   if (req.params.page === "pages") {
     const PAGE_ID = req.body.name.toLocaleLowerCase().split(" ").join("_");
     const PAGE_ITEM = { page: req.body.name, id: PAGE_ID };
@@ -62,6 +63,10 @@ APP.post("/:page", (req, res) => {
 });
 
 APP.put("/:page/:id", (req, res) => {
+  res.set("Content-Type", "application/json");
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Headers', 'origin, content-type, accept');
+
   const ID = /^\d+$/.test(req.params.id) ? Number(req.params.id) : req.params.id;
   const ITEM = (DATA_BASE[req.params.page] as {id: number|string, page: string}[])
     .filter((item) => item.id === ID)[0];
@@ -77,6 +82,10 @@ APP.put("/:page/:id", (req, res) => {
 });
 
 APP.delete("/:page/:id", (req, res) => {
+  res.set("Content-Type", "application/json");
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Headers', 'origin, content-type, accept');
+
   const ID = /^\d+$/.test(req.params.id) ? Number(req.params.id) : req.params.id;
   let wordId: number = null;
   for (let item = 0; item < DATA_BASE[req.params.page].length; item += 1) {
