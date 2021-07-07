@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 8080;
 APP.use(express.json());
 
 APP.use(cors({
-  origin: ["http://localhost:3000", "https://rolling-scopes-school.github.io", "https://brave-joliot-7aafae.netlify.app/main_page"]
+  origin: ["http://localhost:3000", "https://rolling-scopes-school.github.io", "https://brave-joliot-7aafae.netlify.app"]
 }));
 
 APP.get("/:page?/:id?", (req, res) => {
